@@ -28,14 +28,10 @@ npm install pwf
 In your html include:
 
 ```html
-<app-root></app-root>
-```
-
-OR
-
-```html
 <app-root>Loading...</app-root>
 ```
+
+**Note** `Loading...` is optional
 
 Simple Typescript example:
 
