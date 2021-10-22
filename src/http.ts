@@ -25,6 +25,7 @@ export class Http {
       request.onreadystatechange = function () {
         if (this.readyState === 4) {
           if (this.status === 200) {
+            // Resolve with IHttpResponse if status is 200
             let response: IHttpResponse = {
               response: this.response,
               data: JSON.parse(this.responseText) || this.responseText,
@@ -33,6 +34,7 @@ export class Http {
             console.log(response);
             resolve(response);
           } else {
+            // Reject with IHttpError if status is not 200
             let error: IHttpError = {
               response: this.response,
               error: JSON.parse(this.responseText),
@@ -43,6 +45,7 @@ export class Http {
           }
         }
       };
+      // Generate query string (?key=value&key=value) from config.params
       let queryString = config.params
         ? '?' +
           Object.keys(config.params)
@@ -52,6 +55,7 @@ export class Http {
             .join('&')
         : '';
       let parametizedUrl = `${config.url}${queryString}`;
+      // Open request to url (with params)
       request.open(config.method, parametizedUrl, true);
       // Append request headers
       request.setRequestHeader('Content-Type', 'application/json');
