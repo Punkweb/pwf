@@ -1,4 +1,4 @@
-import axios from 'axios';
+import { Http } from '../../../lib';
 
 class Endpoint {
   constructor(endpoint) {
@@ -14,41 +14,41 @@ class Endpoint {
     return headers;
   }
 
-  create(data = {}) {
-    return axios.request({
-      method: 'post',
+  create(data = null) {
+    return Http.request({
+      method: 'POST',
       url: this.createUrl(),
       headers: this.getHeaders(),
       data,
     });
   }
 
-  read(id, params = {}) {
-    return axios.request({
-      method: 'get',
-      headers: this.getHeaders(),
+  read(id, params = null) {
+    return Http.request({
+      method: 'GET',
       url: this.createUrl(id),
-      params,
-    });
-  }
-
-  list(params = {}) {
-    return axios.request({
-      method: 'get',
-      url: this.createUrl(),
       headers: this.getHeaders(),
       params,
     });
   }
 
-  update(id, data = {}, put = false) {
+  list(params = null) {
+    return Http.request({
+      method: 'GET',
+      url: this.createUrl(id),
+      headers: this.getHeaders(),
+      params,
+    });
+  }
+
+  update(id, data = null, put = false) {
     let method = null;
     if (put) {
-      method = 'put';
+      method = 'PUT';
     } else {
-      method = 'patch';
+      method = 'PATCH';
     }
-    return axios.request({
+    return Http.request({
       method,
       url: this.createUrl(id),
       headers: this.getHeaders(),
@@ -57,15 +57,15 @@ class Endpoint {
   }
 
   delete(id) {
-    return axios.request({
-      method: 'delete',
+    return Http.request({
+      method: 'DELETE',
       url: this.createUrl(id),
       headers: this.getHeaders(),
     });
   }
 
-  listRoute(method, route, data = {}, params = {}) {
-    return axios.request({
+  listRoute(method, route, data = null, params = null) {
+    return Http.request({
       method,
       url: `${this.createUrl()}${route}`,
       headers: this.getHeaders(),
@@ -74,8 +74,8 @@ class Endpoint {
     });
   }
 
-  detailRoute(method, route, id, data = {}, params = {}) {
-    return m.request({
+  detailRoute(method, route, id, data = null, params = null) {
+    return Http.request({
       method,
       url: `${this.createUrl()}${id}/${route}`,
       headers: this.getHeaders(),

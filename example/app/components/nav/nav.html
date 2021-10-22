@@ -1,33 +1,30 @@
 <div class="nav">
   <div class="container">
     <div class="nav-content">
-      <a class="nav-title" href="/">punkweb</a>
+      <a class="nav-title" router-link="/">punkweb</a>
       <div class="nav-links">
-        <a class="nav-link" href="/music/" title="Music">
+        <a class="nav-link" router-link="/music/" title="Music">
           <span class="nav-link-icon"><i class="fas fa-music fa-fw"></i></span>
           <span>Music</span>
         </a>
       </div>
       <div class="nav-spacer"></div>
-
-      <!-- TODO: Show if not authenticated-->
-      <div class="nav-links">
-        <a class="nav-link" href="/sign-up/" title="Sign Up">
+      <div id="unauthedLinks" class="nav-links">
+        <a class="nav-link" router-link="/sign-up/" title="Sign Up">
           <i class="nav-link-icon fas fa-user-plus"></i>
           <span class="hide-on-mobile">Sign Up</span>
         </a>
-        <a class="nav-link" href="/login/" title="Login">
+        <a class="nav-link" router-link="/login/" title="Login">
           <i class="nav-link-icon fas fa-sign-in-alt"></i>
           <span class="hide-on-mobile">Login</span>
         </a>
       </div>
-      <!-- TODO: Show if authenticated -->
-      <!-- <div class="nav-links">
-        <a class="nav-link" title="Sign Out">
+      <div id="authedLinks" class="nav-links">
+        <a id="signOutLink" class="nav-link" title="Sign Out">
           <i class="nav-link-icon fas fa-sign-out-alt"></i>
           <span class="hide-on-mobile">Sign Out</span>
         </a>
-      </div> -->
+      </div>
     </div>
   </div>
 </div>

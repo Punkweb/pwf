@@ -1,7 +1,7 @@
 import { BehaviorSubject } from 'rxjs';
 import API from './api';
 
-class AuthService {
+class Auth {
   static user = null;
   static userSubject = new BehaviorSubject(null);
   static user$ = this.userSubject.asObservable();
@@ -16,6 +16,7 @@ class AuthService {
           resolve(res.data);
         })
         .catch((err) => {
+          console.log('signup err', err);
           reject(err);
         });
     });
@@ -36,6 +37,7 @@ class AuthService {
           resolve(res.data);
         })
         .catch((err) => {
+          console.log('login err', err);
           reject(err);
         });
     });
@@ -60,4 +62,4 @@ class AuthService {
   }
 }
 
-module.exports = AuthService;
+module.exports = Auth;

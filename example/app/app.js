@@ -1,12 +1,18 @@
-import { App } from '../../lib';
+import { App } from '../../lib'; // Same as `import { App } from 'pwf';`
+import Auth from './services/auth';
 import Nav from './components/nav/nav';
 import Home from './views/home/home';
 import Login from './views/login/login';
 import '~/scss/defaults.scss';
 import './app.scss';
 
-class AppComponent extends HTMLElement {
+if (Auth.isLoggedIn()) {
+  Auth.getUser(localStorage.getItem('uid'));
+}
+
+class Punkweb extends HTMLElement {
   connectedCallback() {
+    console.log('connected app');
     this.innerHTML = `
       <div class="app">
         <app-nav></app-nav>
@@ -20,11 +26,26 @@ class AppComponent extends HTMLElement {
   }
 }
 
+class Error404 extends HTMLElement {
+  connectedCallback() {
+    console.log('connected error');
+    this.innerHTML = `
+      <div class="container">
+        <h1>Page not found!</h1>
+      </div>
+    `;
+  }
+}
+
 let app = new App({
   declarations: [
     {
-      selector: 'app-component',
-      class: AppComponent,
+      selector: 'app-punkweb',
+      class: Punkweb,
+    },
+    {
+      selector: 'app-error',
+      class: Error404,
     },
     {
       selector: 'app-nav',
@@ -42,6 +63,7 @@ let app = new App({
   routes: [
     { path: '/', selector: 'app-home' },
     { path: '/login/', selector: 'app-login' },
+    { path: '/:404', selector: 'app-error' },
   ],
-  bootstrap: 'app-component',
+  bootstrap: 'app-punkweb',
 });

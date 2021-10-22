@@ -9,65 +9,85 @@ export interface IRouteMatch {
 }
 
 export class Router {
-  public routes: IRoute[];
-  public match: IRouteMatch;
+  static routes: IRoute[];
 
-  constructor(routes: IRoute[]) {
-    this.routes = routes;
+  static init(routes: IRoute[]) {
+    Router.routes = routes;
     if (document.readyState === 'loading') {
       document.addEventListener('DOMContentLoaded', () => {
-        this.afterDOMLoaded();
+        Router.afterDOMLoaded();
       });
     } else {
-      this.afterDOMLoaded();
+      Router.afterDOMLoaded();
     }
   }
 
-  public afterDOMLoaded() {
-    // TODO: Fix external links
+  static afterDOMLoaded() {
     document.body.addEventListener('click', (e: MouseEvent) => {
-      let anchor = e.target as HTMLAnchorElement;
-      if (anchor.matches('[href]')) {
+      let target = e.target as HTMLElement;
+      // Try parent element first
+      if (target.parentElement && target.parentElement.matches('[router-link]')) {
         e.preventDefault();
-        this.navigate(anchor.href);
+        console.log('click link (parent)', target.parentElement.getAttribute('router-link'));
+        Router.navigate(target.parentElement.getAttribute('router-link'));
+        // Otherwise try element
+      } else if (target.matches('[router-link]')) {
+        e.preventDefault();
+        console.log('click link', target.getAttribute('router-link'));
+        Router.navigate(target.getAttribute('router-link'));
       }
     });
     window.addEventListener('popstate', () => {
-      this.matchRoute();
+      Router.matchRoute();
     });
   }
 
-  public pathToRegex(path: string) {
+  static pathToRegex(path: string) {
     return new RegExp('^' + path.replace(/\//g, '\\/').replace(/:\w+/g, '(.+)') + '$');
   }
 
-  public potentialMatches() {
-    return this.routes.map((route) => {
+  static potentialMatches() {
+    return Router.routes.map((route) => {
       return {
         route,
-        result: location.pathname.match(this.pathToRegex(route.path)),
+        result: location.pathname.match(Router.pathToRegex(route.path)),
       };
     });
   }
 
-  public matchRoute() {
-    this.match = this.potentialMatches().find((potentialMatch) => {
+  static matchRoute() {
+    let match = Router.potentialMatches().find((potentialMatch) => {
       return potentialMatch.result !== null;
     });
-    if (!this.match) {
-      this.match = {
-        route: this.routes[0],
-        result: [location.pathname],
-      };
+    if (!match) {
+      // First try to match a 404 route
+      let errRoute = Router.routes.find((route) => {
+        return route.path === '/:404';
+      });
+      if (errRoute) {
+        match = {
+          route: errRoute,
+          result: [location.pathname],
+        };
+      } else {
+        // Default to first route if no :404
+        match = {
+          route: Router.routes[0],
+          result: [location.pathname],
+        };
+      }
     }
-    console.log('matchRoute', this.match);
-    let selector = this.match.route.selector;
-    if (document.querySelector('router-outlet')) {
-      document.querySelector('router-outlet').innerHTML = `<${selector}></${selector}>`;
+    console.log('matchRoute', match);
+    let selector = match.route.selector;
+    let routerOutlet = document.querySelector('router-outlet');
+    if (routerOutlet) {
+      routerOutlet.innerHTML = `<${selector}></${selector}>`;
+    } else {
+      console.log('[ERROR] Improperly configured: No <router-outlet></router-outlet> found');
     }
   }
 
-  public getParams(match: IRouteMatch) {
+  static getParams(match: IRouteMatch) {
     const values = match.result.slice(1);
     const keys = Array.from(match.route.path.matchAll(/:(\w+)/g)).map((result) => result[1]);
 
@@ -78,8 +98,8 @@ export class Router {
     );
   }
 
-  public navigate(url: string | URL) {
+  static navigate(url: string | URL) {
     history.pushState(null, null, url);
-    this.matchRoute();
+    Router.matchRoute();
   }
 }
