@@ -1,0 +1,24 @@
+@import '~/scss/theming';
+
+.app {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+
+  .main {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: row;
+    min-height: 0;
+
+    .outlet {
+      flex-grow: 1;
+      min-height: 0;
+      overflow: auto;
+    }
+  }
+}

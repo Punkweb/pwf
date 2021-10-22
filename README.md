@@ -1,10 +1,12 @@
-# pwf v0.1.0
+# pwf v0.1.1
 
 Punkweb client-side JavaScript framework for building Single Page Applications
 
 ## Installation
 
+```bash
 npm install pwf
+```
 
 ## Get Started
 

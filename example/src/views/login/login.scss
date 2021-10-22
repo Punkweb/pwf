@@ -1,0 +1,19 @@
+@import '~/scss/theming';
+
+.login {
+  margin: 0 auto;
+  max-width: 320px;
+
+  label {
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+
+  &-header {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+    margin-top: 0;
+    margin-bottom: 1rem;
+    padding: 0.5rem 0;
+    text-align: center;
+  }
+}

@@ -1,0 +1,22 @@
+<!-- <app-page-header [breadcrumbs]="breadcrumbs"></app-page-header> -->
+<div class="container">
+  <div class="login">
+    <div class="panel">
+      <div class="panel-body padding">
+        <!-- <form (ngSubmit)="signIn()"> -->
+        <form>
+          <h2 class="login-header">Sign in</h2>
+          <label>Username</label>
+          <input class="full-width margin-bottom" type="text" name="username" />
+          <!-- <input class="full-width margin-bottom" type="text" name="username" [(ngModel)]="username" /> -->
+          <label>Password</label>
+          <input class="full-width margin-bottom" type="password" name="password" />
+          <!-- <input class="full-width margin-bottom" type="password" name="password" [(ngModel)]="password" /> -->
+          <button class="button-primary full-width margin-bottom">Sign in</button>
+          <!-- <button class="button-primary full-width margin-bottom" [disabled]="signInDisabled()" (click)="signIn()">Sign in</button> -->
+          <div>New Here? <a href="/sign-up/">Sign up</a></div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

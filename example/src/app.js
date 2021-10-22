@@ -1,33 +1,47 @@
-import { App, Component } from '../../lib';
+import { App } from '../../lib';
+import Nav from './components/nav/nav';
 import Home from './views/home/home';
+import Login from './views/login/login';
 import '~/scss/defaults.scss';
+import './app.scss';
 
-class Nav extends HTMLElement {
-  static selector = 'app-nav';
-
-  connectedCallback() {
-    this.innerHTML = 'Test Nav';
-  }
-}
-
-class Punkweb extends HTMLElement {
-  static selector = 'app-punkweb';
-
+class AppComponent extends HTMLElement {
   connectedCallback() {
     this.innerHTML = `
-      <app-nav></app-nav>
-      <router-outlet></router-outlet>
+      <div class="app">
+        <app-nav></app-nav>
+        <div class="main">
+          <div class="outlet">
+            <router-outlet></router-outlet>
+          </div>
+        </div>
+      </div>
     `;
   }
 }
 
-let punkweb = new App({
-  declarations: [Punkweb, Nav, Home],
-  routes: [
-    { path: '/', component: Home },
-    { path: '/other/', component: Home },
+let app = new App({
+  declarations: [
+    {
+      selector: 'app-component',
+      class: AppComponent,
+    },
+    {
+      selector: 'app-nav',
+      class: Nav,
+    },
+    {
+      selector: 'app-home',
+      class: Home,
+    },
+    {
+      selector: 'app-login',
+      class: Login,
+    },
   ],
-  bootstrap: Punkweb,
+  routes: [
+    { path: '/', selector: 'app-home' },
+    { path: '/login/', selector: 'app-login' },
+  ],
+  bootstrap: 'app-component',
 });
-
-punkweb.router = null;

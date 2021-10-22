@@ -1,6 +1,6 @@
 export interface IRoute {
   path: string;
-  component: HTMLElement;
+  selector: string;
 }
 
 export interface IRouteMatch {
@@ -61,9 +61,9 @@ export class Router {
       };
     }
     console.log('matchRoute', this.match);
-    let ComponentClass = <any>this.match.route.component;
+    let selector = this.match.route.selector;
     if (document.querySelector('router-outlet')) {
-      document.querySelector('router-outlet').innerHTML = `<${ComponentClass.selector}></${ComponentClass.selector}>`;
+      document.querySelector('router-outlet').innerHTML = `<${selector}></${selector}>`;
     }
   }
 
