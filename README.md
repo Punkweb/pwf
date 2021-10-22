@@ -37,6 +37,8 @@ OR
 <app-root>Loading...</app-root>
 ```
 
+Simple Typescript example:
+
 ```typescript
 import { App } from 'pwf';
 
@@ -44,6 +46,7 @@ class MyApp extends HTMLElement {
   connectedCallback() {
     this.innerHTML = `
       <h1>My App</h1>
+      <!-- matched route (i.e `Home` at `/`) will be rendered in router-outlet! -->
       <router-outlet></router-outlet>
     `;
   }
