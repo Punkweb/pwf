@@ -25,6 +25,8 @@ could be using a more updated version than what is currently published.
 npm install pwf
 ```
 
+### Setup
+
 In your html include:
 
 ```html
@@ -33,7 +35,7 @@ In your html include:
 
 **Note** `Loading...` is optional
 
-Simple Typescript example:
+Simple example:
 
 ```typescript
 import { App } from 'pwf';
@@ -70,6 +72,80 @@ new App({
   routes: [{ path: '/', selector: 'app-home' }],
   bootstrap: 'app-my-app',
 });
+```
+
+### Router
+
+In JavaScript:
+
+```typescript
+import { Router } from 'pwf';
+
+Router.navigate('/login/');
+```
+
+In HTML:
+
+```html
+<a router-link="/login/">Login</a>
+```
+
+### Http
+
+```typescript
+import { Http } from 'pwf';
+
+Http.request({
+  method: 'GET',
+  url: '/users/',
+  headers: {
+    'Authorization': 'token',
+    ...
+  },
+  params: {
+    type: 'active',
+    ...
+  },
+}).then((users) => {
+  console.log(users);
+}).catch((err) => {
+  console.log(err.error);
+});
+
+Http.request({
+  method: 'POST',
+  url: '/contact/',
+  data: {
+    email: 'john@example.com',
+    subject: 'pwf Rocks',
+    body: ''
+    ...
+  },
+});
+```
+
+#### Http Interfaces
+
+```typescript
+interface IHttpRequest {
+  method: string;
+  url: string | URL;
+  headers?: any;
+  params?: any;
+  data?: any;
+}
+
+interface IHttpResponse {
+  response: ArrayBuffer;
+  data: any;
+  status: number;
+}
+
+interface IHttpError {
+  response: ArrayBuffer;
+  error: any;
+  status: number;
+}
 ```
 
 ## Development
