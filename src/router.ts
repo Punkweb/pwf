@@ -23,18 +23,25 @@ export class Router {
   }
 
   static afterDOMLoaded() {
+    // Add 'router-link' attr click handler
     document.body.addEventListener('click', (e: MouseEvent) => {
       let target = e.target as HTMLElement;
-      // Try parent element first
-      if (target.parentElement && target.parentElement.matches('[router-link]')) {
+      // Try clicked element
+      if (target.matches('[router-link]')) {
         e.preventDefault();
-        console.log('click link (parent)', target.parentElement.getAttribute('router-link'));
-        Router.navigate(target.parentElement.getAttribute('router-link'));
-        // Otherwise try element
-      } else if (target.matches('[router-link]')) {
-        e.preventDefault();
-        console.log('click link', target.getAttribute('router-link'));
         Router.navigate(target.getAttribute('router-link'));
+      } else if (target.parentElement) {
+        // Otherwise loop through up to 10 levels of parent elements
+        let iterations = 0;
+        while (target.parentElement && iterations < 10) {
+          if (target.matches('[router-link]')) {
+            e.preventDefault();
+            Router.navigate(target.getAttribute('router-link'));
+            break;
+          }
+          target = target.parentElement;
+          iterations++;
+        }
       }
     });
     window.addEventListener('popstate', () => {
@@ -77,13 +84,12 @@ export class Router {
         };
       }
     }
-    console.log('matchRoute', match);
     let selector = match.route.selector;
     let routerOutlet = document.querySelector('router-outlet');
     if (routerOutlet) {
       routerOutlet.innerHTML = `<${selector}></${selector}>`;
     } else {
-      console.log('[ERROR] Improperly configured: No <router-outlet></router-outlet> found');
+      throw `Improperly configured: No <router-outlet></router-outlet> found`;
     }
   }
 
