@@ -4,15 +4,16 @@ Punkweb client-side JavaScript framework for building Single Page Applications
 
 ## Capabilities
 
-- Simple SPA [Web Component](https://developer.mozilla.org/en-US/docs/Web/Web_Components) router
+- App bootstrapping
+- Simple SPA router
 - Simple json XMLHttpRequests
-- App bootstrapping (Web Components)
+- [lit-html](https://lit-html.polymer-project.org/) based components
 
 ## TODO
 
 - Template engine
-- Virtual DOM
 - State management
+- Better handling of redrawing routes and components
 
 ## Get Started
 
@@ -38,11 +39,11 @@ In your html include:
 Simple example:
 
 ```typescript
-import { App } from 'pwf';
+import { html, App, Component } from 'pwf';
 
-class MyApp extends HTMLElement {
-  connectedCallback() {
-    this.innerHTML = `
+class MyApp extends Component {
+  render() {
+    return html`
       <h1>My App</h1>
       <!-- matched route (i.e `Home` at `/`) will be rendered in router-outlet! -->
       <router-outlet></router-outlet>
@@ -50,27 +51,17 @@ class MyApp extends HTMLElement {
   }
 }
 
-class Home extends HTMLElement {
-  connectedCallback() {
-    this.innerHTML = `
+class Home extends Component {
+  render() {
+    return html`
       <h3>Home</h3>
     `;
   }
 }
 
 new App({
-  declarations: [
-    {
-      selector: 'app-my-app',
-      class: MyApp,
-    },
-    {
-      selector: 'app-home',
-      class: Home,
-    },
-  ],
-  routes: [{ path: '/', selector: 'app-home' }],
-  bootstrap: 'app-my-app',
+  routes: [{ path: '/', component: Home }],
+  bootstrapComponent: MyApp,
 });
 ```
 
