@@ -102,6 +102,8 @@ class API {
   static ContactForms = new Endpoint('contact_forms');
   // Music
   static Artists = new Endpoint('artists');
+  static Albums = new Endpoint('albums');
+  static Audio = new Endpoint('audio');
 }
 
 module.exports = API;

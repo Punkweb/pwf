@@ -1,6 +1,8 @@
-import { App } from '../../lib'; // Same as `import { App } from 'pwf';`
+import { App, Component } from '../../lib'; // Same as `import { App, Component } from 'pwf';`
+import { html } from 'lit-html';
 import Auth from './services/auth';
 import Nav from './components/nav/nav';
+import Error404 from './views/error404/error404';
 import Home from './views/home/home';
 import Login from './views/login/login';
 import Music from './views/music/music';
@@ -13,12 +15,17 @@ if (Auth.isLoggedIn()) {
   Auth.getUser(localStorage.getItem('uid'));
 }
 
-class Punkweb extends HTMLElement {
-  connectedCallback() {
-    console.log('connected app');
-    this.innerHTML = `
+class Punkweb extends Component {
+  init() {
+    console.log('init punkweb');
+    this.nav = new Nav();
+  }
+
+  render() {
+    console.log('render punkweb');
+    return html`
       <div class="app">
-        <app-nav></app-nav>
+        ${this.nav.render()}
         <div class="main">
           <div class="outlet">
             <router-outlet></router-outlet>
@@ -29,62 +36,14 @@ class Punkweb extends HTMLElement {
   }
 }
 
-class Error404 extends HTMLElement {
-  connectedCallback() {
-    console.log('connected error');
-    this.innerHTML = `
-      <div class="container">
-        <h1>404</h1>
-        <h2>Page not found</h2>
-        <p>The page you requested does not exist or an error occured.</p>
-        <a id="homeBtn" class="button" router-link="/">Take me home</a>
-      </div>
-    `;
-  }
-}
-
 let app = new App({
-  declarations: [
-    {
-      selector: 'app-punkweb',
-      class: Punkweb,
-    },
-    {
-      selector: 'app-error',
-      class: Error404,
-    },
-    {
-      selector: 'app-nav',
-      class: Nav,
-    },
-    {
-      selector: 'app-home',
-      class: Home,
-    },
-    {
-      selector: 'app-login',
-      class: Login,
-    },
-    {
-      selector: 'app-music',
-      class: Music,
-    },
-    {
-      selector: 'app-album',
-      class: Album,
-    },
-    {
-      selector: 'app-artist',
-      class: Artist,
-    },
-  ],
   routes: [
-    { path: '/', selector: 'app-home' },
-    { path: '/login/', selector: 'app-login' },
-    { path: '/music/', selector: 'app-music' },
-    { path: '/music/album/:slug/', selector: 'app-album' },
-    { path: '/music/artist/:slug/', selector: 'app-artist' },
-    { path: '/:404', selector: 'app-error' },
+    { path: '/', component: Home },
+    { path: '/login/', component: Login },
+    { path: '/music/', component: Music },
+    { path: '/music/album/:slug/', component: Album },
+    { path: '/music/artist/:slug/', component: Artist },
+    { path: '/:404', component: Error404 },
   ],
-  bootstrap: 'app-punkweb',
+  bootstrapComponent: Punkweb,
 });
