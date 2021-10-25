@@ -1,4 +1,4 @@
-# pwf v0.1.2
+# pwf v0.1.3
 
 Punkweb client-side JavaScript framework for building Single Page Applications
 
