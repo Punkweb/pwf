@@ -3,15 +3,12 @@
   <div class="login">
     <div class="panel">
       <div class="panel-body padding">
-        <!-- <form (ngSubmit)="signIn()"> -->
         <form id="signInForm">
           <h2 class="login-header">Sign in</h2>
           <label>Username</label>
           <input id="username" class="full-width margin-bottom" type="text" name="username" />
-          <!-- <input class="full-width margin-bottom" type="text" name="username" [(ngModel)]="username" /> -->
           <label>Password</label>
           <input id="password" class="full-width margin-bottom" type="password" name="password" />
-          <!-- <input class="full-width margin-bottom" type="password" name="password" [(ngModel)]="password" /> -->
           <button id="signIn" class="button-primary full-width margin-bottom">Sign in</button>
           <!-- <button class="button-primary full-width margin-bottom" [disabled]="signInDisabled()" (click)="signIn()">Sign in</button> -->
           <div>New Here? <a router-link="/sign-up/">Sign up</a></div>

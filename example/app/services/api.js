@@ -35,7 +35,7 @@ class Endpoint {
   list(params = null) {
     return Http.request({
       method: 'GET',
-      url: this.createUrl(id),
+      url: this.createUrl(),
       headers: this.getHeaders(),
       params,
     });
@@ -94,9 +94,14 @@ class Endpoint {
 }
 
 class API {
+  // Auth
   static Register = new Endpoint('register');
   static TokenAuth = new Endpoint('token-auth');
   static Users = new Endpoint('users');
+  // Contact
+  static ContactForms = new Endpoint('contact_forms');
+  // Music
+  static Artists = new Endpoint('artists');
 }
 
 module.exports = API;
