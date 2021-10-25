@@ -1,6 +1,8 @@
+import { render } from 'lit-html';
+
 export interface IRoute {
   path: string;
-  selector: string;
+  component: any;
 }
 
 export interface IRouteMatch {
@@ -9,6 +11,8 @@ export interface IRouteMatch {
 }
 
 export class Router {
+  static match: IRouteMatch;
+  static componentInstance: any;
   static routes: IRoute[];
 
   static init(routes: IRoute[]) {
@@ -63,39 +67,49 @@ export class Router {
   }
 
   static matchRoute() {
-    let match = Router.potentialMatches().find((potentialMatch) => {
+    this.match = Router.potentialMatches().find((potentialMatch) => {
       return potentialMatch.result !== null;
     });
-    if (!match) {
+    if (!this.match) {
       // First try to match a 404 route
       let errRoute = Router.routes.find((route) => {
         return route.path === '/:404';
       });
       if (errRoute) {
-        match = {
+        this.match = {
           route: errRoute,
           result: [location.pathname],
         };
       } else {
         // Default to first route if no :404
-        match = {
+        this.match = {
           route: Router.routes[0],
           result: [location.pathname],
         };
       }
     }
-    let selector = match.route.selector;
-    let routerOutlet = document.querySelector('router-outlet');
+    Router.renderRouterOutlet(true);
+  }
+
+  static renderRouterOutlet(init = false) {
+    if (init) {
+      let component = this.match.route.component;
+      this.componentInstance = new component();
+    }
+    let routerOutlet = document.querySelector('router-outlet') as HTMLElement;
     if (routerOutlet) {
-      routerOutlet.innerHTML = `<${selector}></${selector}>`;
+      render(this.componentInstance.render(), routerOutlet);
+      if (init && this.componentInstance.afterRender) {
+        this.componentInstance.afterRender();
+      }
     } else {
       throw `Improperly configured: No <router-outlet></router-outlet> found`;
     }
   }
 
-  static getParams(match: IRouteMatch) {
-    const values = match.result.slice(1);
-    const keys = Array.from(match.route.path.matchAll(/:(\w+)/g)).map((result) => result[1]);
+  static getParams() {
+    const values = this.match.result.slice(1);
+    const keys = Array.from(this.match.route.path.matchAll(/:(\w+)/g)).map((result) => result[1]);
 
     return Object.fromEntries(
       keys.map((key, i) => {
