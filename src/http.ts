@@ -19,42 +19,44 @@ interface IHttpError {
 }
 
 export class Http {
+  static buildQueryString(params: any) {
+    // Generate query string (?key=value&key=value) from params
+    let queryString = params
+      ? '?' +
+        Object.keys(params)
+          .map((key) => {
+            return `${key}=${params[key]}`;
+          })
+          .join('&')
+      : '';
+    return queryString;
+  }
+
   static request(config: IHttpRequest) {
     return new Promise((resolve, reject) => {
       let request = new XMLHttpRequest();
       request.onreadystatechange = function () {
         if (this.readyState === 4) {
-          if (this.status === 200) {
-            // Resolve with IHttpResponse if status is 200
+          if (this.status >= 200 && this.status < 300) {
+            // Resolve with IHttpResponse if status is 200-299
             let response: IHttpResponse = {
               response: this.response,
               data: JSON.parse(this.responseText) || this.responseText,
               status: this.status,
             };
-            console.log(response);
             resolve(response);
           } else {
-            // Reject with IHttpError if status is not 200
+            // Reject with IHttpError if status is not 200-299
             let error: IHttpError = {
               response: this.response,
               error: JSON.parse(this.responseText),
               status: this.status,
             };
-            console.log(error);
             reject(error);
           }
         }
       };
-      // Generate query string (?key=value&key=value) from config.params
-      let queryString = config.params
-        ? '?' +
-          Object.keys(config.params)
-            .map((key) => {
-              return `${key}=${config.params[key]}`;
-            })
-            .join('&')
-        : '';
-      let parametizedUrl = `${config.url}${queryString}`;
+      let parametizedUrl = `${config.url}${this.buildQueryString(config.params)}`;
       // Open request to url (with params)
       request.open(config.method, parametizedUrl, true);
       // Append request headers

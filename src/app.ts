@@ -15,7 +15,6 @@ export class App {
   public root: HTMLElement;
 
   constructor(appConfig: IAppConfig) {
-    console.log('appConfig', appConfig);
     this.root = document.querySelector('app-root');
     Router.init(appConfig.routes);
     appConfig.declarations.forEach((declaration) => {
