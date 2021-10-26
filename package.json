@@ -22,7 +22,7 @@
   ],
   "keywords": [],
   "author": "Punkweb (https://github.com/Punkweb/)",
-  "license": "ISC",
+  "license": "BSD-3-Clause",
   "bugs": "https://github.com/Punkweb/pwf/issues",
   "homepage": "https://github.com/Punkweb/pwf#readme",
   "devDependencies": {
