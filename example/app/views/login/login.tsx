@@ -7,13 +7,9 @@ export default function Login() {
 
   function login(e: any) {
     e.preventDefault();
-    Auth.login({ username, password })
-      .then(() => {
-        pwf.router.navigate('/');
-      })
-      .catch((err) => {
-        console.log('login err', err);
-      });
+    Auth.login({ username, password }).then(() => {
+      pwf.router.navigate('/');
+    });
   }
 
   return (

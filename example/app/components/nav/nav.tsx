@@ -4,7 +4,6 @@ import { Auth } from '../../services';
 let user = null;
 Auth.user$.subscribe((u) => {
   user = u;
-  console.log(user);
   pwf.redraw();
 });
 
