@@ -2,6 +2,11 @@
 
 Punkweb client-side JavaScript framework for building Single Page Applications
 
+![license](https://img.shields.io/npm/l/pwf)
+[![test status](https://github.com/Punkweb/pwf/actions/workflows/test.yml/badge.svg)](https://github.com/Punkweb/pwf/actions/workflows/test.yml)
+![npm](https://img.shields.io/npm/v/pwf)
+![npm downloads](https://img.shields.io/npm/dw/pwf)
+
 ## Capabilities
 
 - Simple SPA router
