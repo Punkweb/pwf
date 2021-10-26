@@ -79,7 +79,7 @@ To use JSX in a TypeScript app you'll need to set the following
 
 ### Simple example
 
-```typescript
+```JSX
 import { App, jsx } from 'pwf';
 
 function MyApp() {
@@ -103,23 +103,23 @@ new App({
 
 ### Router
 
-Navigation in JavaScript:
+Navigation from JavaScript:
 
-```typescript
+```JSX
 import { Router } from 'pwf';
 
 Router.navigate('/login/');
 ```
 
-Navigation in HTML:
+Navigation from JSX:
 
-```html
-<a router-link="/login/">Login</a>
+```JSX
+<a attrs={{ 'router-link': '/login/' }}>Login</a>
 ```
 
 ### Http
 
-```typescript
+```javascript
 import { Http } from 'pwf';
 
 Http.request({
