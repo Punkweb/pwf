@@ -12,7 +12,7 @@ export default class Auth {
         username,
         password,
       })
-        .then((res) => {
+        .then((res: any) => {
           resolve(res.data);
         })
         .catch((err) => {
@@ -28,7 +28,7 @@ export default class Auth {
         username,
         password,
       })
-        .then((res) => {
+        .then((res: any) => {
           if (res && res.data && res.data.id && res.data.token) {
             localStorage.setItem('uid', res.data.id);
             localStorage.setItem('token', res.data.token);
@@ -36,7 +36,7 @@ export default class Auth {
           }
           resolve(res.data);
         })
-        .catch((err) => {
+        .catch((err: any) => {
           console.log('login err', err);
           reject(err);
         });
@@ -50,8 +50,8 @@ export default class Auth {
     localStorage.removeItem('token');
   }
 
-  static getUser(id) {
-    API.Users.read(id).then((res) => {
+  static getUser(id: number | string) {
+    API.Users.read(id).then((res: any) => {
       this.user = res.data;
       this.userSubject.next(this.user);
     });

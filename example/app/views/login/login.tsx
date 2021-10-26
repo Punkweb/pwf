@@ -1,11 +1,11 @@
 import { pwf, jsx } from '../../../../src';
-import Auth from '../../services/auth';
+import { Auth } from '../../services';
 
 export default function Login() {
   let username = '';
   let password = '';
 
-  function login(e) {
+  function login(e: any) {
     e.preventDefault();
     Auth.login({ username, password })
       .then(() => {
@@ -18,13 +18,13 @@ export default function Login() {
 
   return (
     <div class={{ container: true }}>
-      <form on={{ submit: (e) => login(e) }}>
+      <form on={{ submit: (e: any) => login(e) }}>
         <h1>Sign in</h1>
         <label>Username</label>
         <input
           attrs={{ type: 'text', name: 'username', value: username }}
           on={{
-            input: (e) => {
+            input: (e: any) => {
               username = e.target.value;
             },
           }}
@@ -33,7 +33,7 @@ export default function Login() {
         <input
           attrs={{ type: 'password', name: 'password', value: password }}
           on={{
-            input: (e) => {
+            input: (e: any) => {
               password = e.target.value;
             },
           }}

@@ -1,9 +1,7 @@
 import { pwf, jsx } from '../../src'; // Same as `import { pwf } from 'pwf';`
-import Auth from './services/auth';
-import Nav from './components/nav/nav';
-import Error404 from './views/error404/error404';
-import Home from './views/home/home';
-import Login from './views/login/login';
+import { Nav } from './components';
+import { Auth } from './services';
+import { Error404, Home, Login } from './views';
 
 if (Auth.isLoggedIn()) {
   Auth.getUser(localStorage.getItem('uid'));

@@ -1,8 +1,8 @@
 import { pwf, jsx } from '../../../../src';
-import Auth from '../../services/auth';
+import { Auth } from '../../services';
 
 let user = null;
-const userSub = Auth.user$.subscribe((u) => {
+Auth.user$.subscribe((u) => {
   user = u;
   pwf.router.redraw();
 });
@@ -10,34 +10,36 @@ const userSub = Auth.user$.subscribe((u) => {
 export default function Nav() {
   return (
     <div class={{ container: true }}>
-      <a attrs={{ 'router-link': '/' }}>
-        <h1>punkweb</h1>
-      </a>
+      <h1>
+        <a attrs={{ 'router-link': '/' }}>punkweb</a>
+      </h1>
       {user ? (
-        <div>
-          <a
-            on={{
-              click: (e) => {
-                if (e) {
-                  e.preventDefault();
-                }
-                Auth.logout();
-                pwf.router.navigate('/login/');
-              },
-            }}
-          >
-            Sign Out
-          </a>
-        </div>
+        <ul>
+          <li>
+            <a
+              on={{
+                click: (e: any) => {
+                  if (e) {
+                    e.preventDefault();
+                  }
+                  Auth.logout();
+                  pwf.router.navigate('/login/');
+                },
+              }}
+            >
+              Sign Out
+            </a>
+          </li>
+        </ul>
       ) : (
-        <div>
-          <div>
+        <ul>
+          <li>
             <a attrs={{ 'router-link': '/sign-up/' }}>Sign Up</a>
-          </div>
-          <div>
+          </li>
+          <li>
             <a attrs={{ 'router-link': '/login/' }}>Login</a>
-          </div>
-        </div>
+          </li>
+        </ul>
       )}
     </div>
   );
