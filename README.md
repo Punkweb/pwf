@@ -1,17 +1,18 @@
-# pwf v0.1.4
+# pwf v0.2.0
 
 Punkweb client-side JavaScript framework for building Single Page Applications
 
 ## Capabilities
 
-- App bootstrapping
 - Simple SPA router
 - Simple json XMLHttpRequests
-- jsx Virtual DOM provided by [snabbdom](https://github.com/snabbdom/snabbdom)
+- JSX Virtual DOM provided by [snabbdom](https://github.com/snabbdom/snabbdom)
 
 ## TODO
 
-- Change detection
+- Components w/ Change detection
+- Trigger change detection on event callbacks
+- Trigger change detection on http callbacks
 
 ## Get Started
 
@@ -79,15 +80,8 @@ To use JSX in a TypeScript app you'll need to set the following
 
 ### Simple example
 
-```JSX
-import { App, jsx } from 'pwf';
-
-function MyApp() {
-  return (
-    <h1>My App</h1>
-    <router-outlet></router-outlet>
-  );
-}
+```TSX
+import { pwf, jsx } from 'pwf';
 
 function Home() {
   return (
@@ -95,34 +89,42 @@ function Home() {
   )
 }
 
-new App({
-  routes: [{ path: '/', component: Home }],
-  bootstrap: MyApp,
-});
+function Error404 {
+  return (
+    <h3>Page Not Found</h3>
+  )
+}
+
+pwf.router.init([
+  routes: [
+    { path: '/' component: Home },
+    { path: '/:404' component: Error404 },
+  ]
+]);
 ```
 
 ### Router
 
 Navigation from JavaScript:
 
-```JSX
-import { Router } from 'pwf';
+```typescript
+import { pwf } from 'pwf';
 
-Router.navigate('/login/');
+pwf.router.navigate('/login/');
 ```
 
 Navigation from JSX:
 
-```JSX
+```TSX
 <a attrs={{ 'router-link': '/login/' }}>Login</a>
 ```
 
 ### Http
 
-```javascript
-import { Http } from 'pwf';
+```typescript
+import { pwf } from 'pwf';
 
-Http.request({
+pwf.request({
   method: 'GET',
   url: '/users/',
   headers: {
@@ -139,7 +141,7 @@ Http.request({
   console.log(err.error);
 });
 
-Http.request({
+pwf.request({
   method: 'POST',
   url: '/login/',
   data: {

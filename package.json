@@ -1,6 +1,6 @@
 {
   "name": "pwf",
-  "version": "0.1.4",
+  "version": "0.2.0",
   "description": "Punkweb client-side JavaScript framework for building Single Page Applications",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -26,8 +26,7 @@
   "bugs": "https://github.com/Punkweb/pwf/issues",
   "homepage": "https://github.com/Punkweb/pwf#readme",
   "devDependencies": {
-    "@babel/core": "^7.15.8",
-    "@babel/plugin-transform-react-jsx": "^7.14.9",
+    "@types/node": "^16.11.6",
     "parcel-bundler": "^1.12.5",
     "prettier": "^2.4.1",
     "rxjs": "^7.4.0",
