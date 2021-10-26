@@ -4,7 +4,8 @@ import { Auth } from '../../services';
 let user = null;
 Auth.user$.subscribe((u) => {
   user = u;
-  pwf.router.redraw();
+  console.log(user);
+  pwf.redraw();
 });
 
 export default function Nav() {
@@ -19,9 +20,7 @@ export default function Nav() {
             <a
               on={{
                 click: (e: any) => {
-                  if (e) {
-                    e.preventDefault();
-                  }
+                  e.preventDefault();
                   Auth.logout();
                   pwf.router.navigate('/login/');
                 },

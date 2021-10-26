@@ -23,6 +23,7 @@ const _router = router(rootContainer, _render);
 export { jsx } from 'snabbdom';
 export const pwf = {
   buildQueryString: http.buildQueryString,
+  redraw: _router.redraw,
   render: _render,
   request: http.request,
   router: _router,

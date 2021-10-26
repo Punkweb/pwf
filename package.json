@@ -8,7 +8,7 @@
     "start": "parcel example/index.html",
     "build": "tsc --watch",
     "format": "prettier --write 'src/**/*.{html,css,scss,js,ts,md}'",
-    "test": "jest",
+    "test": "jest src/",
     "nuke": "rm -rf .cache dist lib node_modules",
     "reinstall": "npm run nuke && npm install",
     "prepare": "rm -rf lib && tsc"
