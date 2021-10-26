@@ -1,12 +1,14 @@
-import { Http } from '../../../lib';
+import { pwf } from '../../../src';
 
 class Endpoint {
-  constructor(endpoint) {
+  private endpoint: string = '';
+
+  constructor(endpoint: string) {
     this.endpoint = endpoint;
   }
 
   getHeaders() {
-    let headers = {};
+    let headers: any = {};
     // If logged in, add the authorization header
     if (!!localStorage.getItem('uid') && !!localStorage.getItem('token')) {
       headers.Authorization = `Token ${localStorage.getItem('token')}`;
@@ -15,7 +17,7 @@ class Endpoint {
   }
 
   create(data = null) {
-    return Http.request({
+    return pwf.request({
       method: 'POST',
       url: this.createUrl(),
       headers: this.getHeaders(),
@@ -23,8 +25,8 @@ class Endpoint {
     });
   }
 
-  read(id, params = null) {
-    return Http.request({
+  read(id: number | string, params = null) {
+    return pwf.request({
       method: 'GET',
       url: this.createUrl(id),
       headers: this.getHeaders(),
@@ -33,7 +35,7 @@ class Endpoint {
   }
 
   list(params = null) {
-    return Http.request({
+    return pwf.request({
       method: 'GET',
       url: this.createUrl(),
       headers: this.getHeaders(),
@@ -41,14 +43,14 @@ class Endpoint {
     });
   }
 
-  update(id, data = null, put = false) {
+  update(id: number | string, data = null, put = false) {
     let method = null;
     if (put) {
       method = 'PUT';
     } else {
       method = 'PATCH';
     }
-    return Http.request({
+    return pwf.request({
       method,
       url: this.createUrl(id),
       headers: this.getHeaders(),
@@ -56,16 +58,16 @@ class Endpoint {
     });
   }
 
-  delete(id) {
-    return Http.request({
+  delete(id: number | string) {
+    return pwf.request({
       method: 'DELETE',
       url: this.createUrl(id),
       headers: this.getHeaders(),
     });
   }
 
-  listRoute(method, route, data = null, params = null) {
-    return Http.request({
+  listRoute(method: string, route: string, data = null, params = null) {
+    return pwf.request({
       method,
       url: `${this.createUrl()}${route}`,
       headers: this.getHeaders(),
@@ -74,8 +76,8 @@ class Endpoint {
     });
   }
 
-  detailRoute(method, route, id, data = null, params = null) {
-    return Http.request({
+  detailRoute(method: string, route: string, id: number | string, data = null, params = null) {
+    return pwf.request({
       method,
       url: `${this.createUrl()}${id}/${route}`,
       headers: this.getHeaders(),
@@ -93,7 +95,7 @@ class Endpoint {
   }
 }
 
-class API {
+export default class API {
   // Auth
   static Register = new Endpoint('register');
   static TokenAuth = new Endpoint('token-auth');
@@ -101,5 +103,3 @@ class API {
   // Contact
   static ContactForms = new Endpoint('contact_forms');
 }
-
-module.exports = API;

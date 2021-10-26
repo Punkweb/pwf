@@ -1,7 +1,7 @@
 import { BehaviorSubject } from 'rxjs';
 import API from './api';
 
-class Auth {
+export default class Auth {
   static user = null;
   static userSubject = new BehaviorSubject(null);
   static user$ = this.userSubject.asObservable();
@@ -61,5 +61,3 @@ class Auth {
     return !!localStorage.getItem('uid') && !!localStorage.getItem('token');
   }
 }
-
-module.exports = Auth;

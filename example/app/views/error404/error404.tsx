@@ -1,6 +1,6 @@
-import { jsx } from '../../../../lib';
+import { jsx } from '../../../../src';
 
-function Error404() {
+export default function Error404() {
   return (
     <div class={{ container: true }}>
       <h1>404</h1>
@@ -18,5 +18,3 @@ function Error404() {
     </div>
   );
 }
-
-module.exports = Error404;
