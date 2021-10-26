@@ -44,5 +44,3 @@ pwf.router.init([
     },
   },
 ]);
-
-console.log(pwf.router.routes);
