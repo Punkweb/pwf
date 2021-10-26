@@ -6,7 +6,9 @@
     "declaration": true,
     "outDir": "./lib",
     "strict": true,
-    "strictNullChecks": false
+    "strictNullChecks": false,
+    "jsx": "react",
+    "jsxFactory": "jsx"
   },
   "include": ["src"],
   "exclude": ["node_modules"]

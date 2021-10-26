@@ -7,13 +7,11 @@ Punkweb client-side JavaScript framework for building Single Page Applications
 - App bootstrapping
 - Simple SPA router
 - Simple json XMLHttpRequests
-- [lit-html](https://lit-html.polymer-project.org/) based components
+- jsx Virtual DOM provided by [snabbdom](https://github.com/snabbdom/snabbdom)
 
 ## TODO
 
-- Template engine
-- State management
-- Better handling of redrawing routes and components
+- Change detection
 
 ## Get Started
 
@@ -28,46 +26,84 @@ npm install pwf
 
 ### Setup
 
-In your html include:
+In your document body include an `app-root` tag and import your script:
 
 ```html
 <app-root>Loading...</app-root>
+
+<!-- Example using parcel-bundler -->
+<script src="./src/app.jsx"></script>
 ```
 
 **Note** `Loading...` is optional
 
-Simple example:
+### JSX
+
+#### JavaScript
+
+To use JSX in a JavaScript app you'll need to install
+`@babel/plugin-transform-react-jsx` and add it to your plugins in `.babelrc`:
+
+```bash
+npm install --save-dev @babel/plugin-transform-react-jsx
+```
+
+```json
+{
+  "plugins": [
+    [
+      "@babel/plugin-transform-react-jsx",
+      {
+        "pragma": "jsx"
+      }
+    ],
+    ...
+  ],
+  ...
+}
+```
+
+#### TypeScript
+
+To use JSX in a TypeScript app you'll need to set the following
+`compilerOptions` in `tsconfig.json`
+
+```json
+"compilerOptions": {
+  ...
+  "jsx": "react",
+  "jsxFactory": "jsx"
+  ...
+},
+```
+
+### Simple example
 
 ```typescript
-import { html, App, Component } from 'pwf';
+import { App, jsx } from 'pwf';
 
-class MyApp extends Component {
-  render() {
-    return html`
-      <h1>My App</h1>
-      <!-- matched route (i.e `Home` at `/`) will be rendered in router-outlet! -->
-      <router-outlet></router-outlet>
-    `;
-  }
+function MyApp() {
+  return (
+    <h1>My App</h1>
+    <router-outlet></router-outlet>
+  );
 }
 
-class Home extends Component {
-  render() {
-    return html`
-      <h3>Home</h3>
-    `;
-  }
+function Home() {
+  return (
+    <h3>Home</h3>
+  )
 }
 
 new App({
   routes: [{ path: '/', component: Home }],
-  bootstrapComponent: MyApp,
+  bootstrap: MyApp,
 });
 ```
 
 ### Router
 
-In JavaScript:
+Navigation in JavaScript:
 
 ```typescript
 import { Router } from 'pwf';
@@ -75,7 +111,7 @@ import { Router } from 'pwf';
 Router.navigate('/login/');
 ```
 
-In HTML:
+Navigation in HTML:
 
 ```html
 <a router-link="/login/">Login</a>
@@ -105,11 +141,10 @@ Http.request({
 
 Http.request({
   method: 'POST',
-  url: '/contact/',
+  url: '/login/',
   data: {
-    email: 'john@example.com',
-    subject: 'pwf Rocks',
-    body: ''
+    username: 'username',
+    password: 'password',
     ...
   },
 });

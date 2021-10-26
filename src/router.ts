@@ -1,8 +1,6 @@
-import { render } from 'lit-html';
-
 export interface IRoute {
   path: string;
-  component: any;
+  component: Function;
 }
 
 export interface IRouteMatch {
@@ -11,11 +9,14 @@ export interface IRouteMatch {
 }
 
 export class Router {
+  static patch: any;
   static match: IRouteMatch;
-  static componentInstance: any;
   static routes: IRoute[];
+  static routerOutlet: any;
+  static routerOutletContainer: any;
 
-  static init(routes: IRoute[]) {
+  static init(patch: any, routes: IRoute[]) {
+    Router.patch = patch;
     Router.routes = routes;
     if (document.readyState === 'loading') {
       document.addEventListener('DOMContentLoaded', () => {
@@ -23,6 +24,14 @@ export class Router {
       });
     } else {
       Router.afterDOMLoaded();
+    }
+    // Append a container div to the router-outlet that will be replaced on route changes
+    this.routerOutlet = document.querySelector('router-outlet');
+    if (this.routerOutlet) {
+      this.routerOutletContainer = document.createElement('div');
+      this.routerOutlet.appendChild(this.routerOutletContainer);
+    } else {
+      throw `Improperly configured: No <router-outlet></router-outlet> found`;
     }
   }
 
@@ -88,23 +97,12 @@ export class Router {
         };
       }
     }
-    Router.renderRouterOutlet(true);
+    Router.renderRouterOutlet();
   }
 
-  static renderRouterOutlet(init = false) {
-    if (init) {
-      let component = this.match.route.component;
-      this.componentInstance = new component();
-    }
-    let routerOutlet = document.querySelector('router-outlet') as HTMLElement;
-    if (routerOutlet) {
-      render(this.componentInstance.render(), routerOutlet);
-      if (init && this.componentInstance.afterRender) {
-        this.componentInstance.afterRender();
-      }
-    } else {
-      throw `Improperly configured: No <router-outlet></router-outlet> found`;
-    }
+  static renderRouterOutlet() {
+    let component = this.match.route.component;
+    this.routerOutletContainer = this.patch(this.routerOutletContainer, component());
   }
 
   static getParams() {
