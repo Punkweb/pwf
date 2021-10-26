@@ -11,7 +11,6 @@ export default function Error404() {
           'id': 'homeBtn',
           'router-link': '/',
         }}
-        class={{ button: true }}
       >
         Take me home
       </a>

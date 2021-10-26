@@ -114,6 +114,14 @@ function navigate(url: string | URL) {
   matchRoute();
 }
 
+function getRoutes() {
+  return routes;
+}
+
+function getMatch() {
+  return match;
+}
+
 export const router = (_root: any, _render: Function) => {
   root = _root;
   render = _render;
@@ -122,5 +130,7 @@ export const router = (_root: any, _render: Function) => {
     redraw,
     getParams,
     navigate,
+    getRoutes,
+    getMatch,
   };
 };

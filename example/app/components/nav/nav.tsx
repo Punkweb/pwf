@@ -9,7 +9,7 @@ const userSub = Auth.user$.subscribe((u) => {
 
 export default function Nav() {
   return (
-    <div class={{ nav: true }}>
+    <div class={{ container: true }}>
       <a attrs={{ 'router-link': '/' }}>
         <h1>punkweb</h1>
       </a>

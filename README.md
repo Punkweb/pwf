@@ -6,7 +6,7 @@ Punkweb client-side JavaScript framework for building Single Page Applications
 
 - Simple SPA router
 - Simple json XMLHttpRequests
-- JSX Virtual DOM provided by [snabbdom](https://github.com/snabbdom/snabbdom)
+- Hyperscript or JSX Virtual DOM provided by [snabbdom](https://github.com/snabbdom/snabbdom)
 
 ## TODO
 
@@ -203,8 +203,6 @@ npm run format
 ```
 
 ### Test
-
-**Note** Tests are not implemented.
 
 ```
 npm test
