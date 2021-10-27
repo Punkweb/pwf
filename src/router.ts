@@ -1,3 +1,6 @@
+import { h } from 'snabbdom';
+import { logIfDebug } from './util';
+
 export interface IRoute {
   path: string;
   component: Function;
@@ -8,13 +11,19 @@ export interface IRouteMatch {
   route: IRoute;
 }
 
-let root: any;
+let root: any = null;
 let render: Function = null;
+let initialized = false;
 let routes: IRoute[] = [];
 let match: IRouteMatch = null;
 
-function init(_routes: IRoute[]) {
+function init(_root: any, _routes: IRoute[]) {
+  if (initialized) {
+    throw 'router can only be initialized once';
+  }
+  root = _root;
   routes = _routes;
+  logIfDebug('router', 'routes initialized', routes);
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', () => {
       afterDOMLoaded();
@@ -23,10 +32,12 @@ function init(_routes: IRoute[]) {
     afterDOMLoaded();
   }
   matchRoute();
+  initialized = true;
 }
 
 function afterDOMLoaded() {
   // Add 'router-link' attr click handler
+  logIfDebug('router', 'add router-link click listener');
   document.body.addEventListener('click', (e: MouseEvent) => {
     let target = e.target as HTMLElement;
     // Try clicked element
@@ -47,6 +58,7 @@ function afterDOMLoaded() {
       }
     }
   });
+  logIfDebug('router', 'add popstate listener');
   window.addEventListener('popstate', () => {
     matchRoute();
   });
@@ -70,46 +82,51 @@ function matchRoute() {
     return potentialMatch.result !== null;
   });
   if (!match) {
-    // First try to match a 404 route
-    let errRoute = routes.find((route) => {
-      return route.path === '/:404';
-    });
-    if (errRoute) {
-      match = {
-        route: errRoute,
-        result: [location.pathname],
-      };
-    } else {
-      // Default to first route if no :404
-      match = {
-        route: routes[0],
-        result: [location.pathname],
-      };
-    }
+    // Default to first route if no :404
+    match = {
+      route: routes[0],
+      result: [location.pathname],
+    };
+    logIfDebug('router', 'matchRoute', 'default', match);
+  } else {
+    logIfDebug('router', 'matchRoute', match);
   }
-  redraw();
+  draw();
 }
 
-function redraw() {
+function draw() {
   if (!match) {
     return;
   }
+  // Unmount the current component
+  logIfDebug('router', 'draw', 'clear');
+  root = render(root, null);
+  // Render the new component
   let component = match.route.component;
+  logIfDebug('router', 'draw', component);
   root = render(root, component());
 }
 
 function getParams() {
+  if (!match) {
+    return {};
+  }
   const values = match.result.slice(1);
   const keys = Array.from(match.route.path.matchAll(/:(\w+)/g)).map((result) => result[1]);
-
-  return Object.fromEntries(
+  let params = Object.fromEntries(
     keys.map((key, i) => {
       return [key, values[i]];
     })
   );
+  logIfDebug('router', 'getParams', params);
+  return params;
 }
 
 function navigate(url: string | URL) {
+  if (!initialized) {
+    throw 'navigate called when router was not initialized';
+  }
+  logIfDebug('router', 'navigate', url);
   history.pushState(null, null, url);
   matchRoute();
 }
@@ -122,12 +139,11 @@ function getMatch() {
   return match;
 }
 
-export const router = (_root: any, _render: Function) => {
-  root = _root;
+export const router = (_render: Function) => {
   render = _render;
   return {
     init,
-    redraw,
+    draw,
     getParams,
     navigate,
     getRoutes,

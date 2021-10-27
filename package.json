@@ -1,6 +1,6 @@
 {
   "name": "pwf",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Punkweb client-side JavaScript framework for building Single Page Applications",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -10,6 +10,7 @@
     "format": "prettier --write 'src/**/*.{html,css,scss,js,ts,md}'",
     "test": "jest src/",
     "nuke": "rm -rf .cache dist lib node_modules",
+    "nuke:dist": "rm -rf .cache dist",
     "reinstall": "npm run nuke && npm install",
     "prepare": "rm -rf lib && tsc"
   },
