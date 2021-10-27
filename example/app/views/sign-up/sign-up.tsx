@@ -1,17 +1,19 @@
 import { pwf, jsx } from '../../../../src';
 import { Auth } from '../../services';
 
+let username = '';
+let password = '';
+
+function signup(e: any) {
+  e.preventDefault();
+  Auth.signup({ username, password }).then(() => {
+    username = '';
+    password = '';
+    pwf.router.navigate('/login/');
+  });
+}
+
 export default function SignUp() {
-  let username = 'asdf';
-  let password = '';
-
-  function signup(e: any) {
-    e.preventDefault();
-    Auth.signup({ username, password }).then(() => {
-      pwf.router.navigate('/login/');
-    });
-  }
-
   return (
     <div class={{ container: true }}>
       <form
@@ -29,6 +31,7 @@ export default function SignUp() {
           on={{
             input: (e: any) => {
               username = e.target.value;
+              pwf.redraw();
             },
           }}
         />
@@ -39,6 +42,7 @@ export default function SignUp() {
           on={{
             input: (e: any) => {
               password = e.target.value;
+              pwf.redraw();
             },
           }}
         />

@@ -90,19 +90,21 @@ function matchRoute() {
   } else {
     logIfDebug('router', 'matchRoute', match);
   }
-  draw();
+  draw(true);
 }
 
-function draw() {
+function draw(clear = false) {
   if (!match) {
     return;
   }
   // Unmount the current component
-  logIfDebug('router', 'draw', 'clear');
-  root = render(root, null);
+  if (clear) {
+    logIfDebug('router', 'draw', 'clear');
+    root = render(root, null);
+  }
   // Render the new component
   let component = match.route.component;
-  logIfDebug('router', 'draw', component);
+  logIfDebug('router', 'draw');
   root = render(root, component());
 }
 

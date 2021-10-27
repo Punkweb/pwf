@@ -18,6 +18,9 @@ export default function Nav() {
       {user ? (
         <ul>
           <li>
+            <a attrs={{ 'router-link': '/error/' }}>Error Page</a>
+          </li>
+          <li>
             <a
               on={{
                 click: (e: any) => {
@@ -33,6 +36,9 @@ export default function Nav() {
         </ul>
       ) : (
         <ul>
+          <li>
+            <a attrs={{ 'router-link': '/error/' }}>Error Page</a>
+          </li>
           <li>
             <a attrs={{ 'router-link': '/sign-up/' }}>Sign Up</a>
           </li>
