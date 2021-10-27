@@ -1,13 +1,15 @@
-import { pwf, jsx } from '../../src'; // Same as `import { pwf } from 'pwf';`
+import { pwf, jsx } from '../../src'; // Same as `import { pwf, jsx } from 'pwf';`
 import { Nav } from './components';
 import { Auth } from './services';
-import { Error404, Home, Login } from './views';
+import { Error404, Home, Login, SignUp } from './views';
 
 if (Auth.isLoggedIn()) {
   Auth.getUser(localStorage.getItem('uid'));
 }
 
-pwf.router.init([
+let root = document.querySelector('app-root');
+
+pwf.router.init(root, [
   {
     path: '/',
     component: () => {
@@ -26,6 +28,17 @@ pwf.router.init([
         <div>
           <Nav />
           <Login />
+        </div>
+      );
+    },
+  },
+  {
+    path: '/sign-up/',
+    component: () => {
+      return (
+        <div>
+          <Nav />
+          <SignUp />
         </div>
       );
     },

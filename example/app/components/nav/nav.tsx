@@ -11,7 +11,9 @@ export default function Nav() {
   return (
     <div class={{ container: true }}>
       <h1>
-        <a attrs={{ 'router-link': '/' }}>punkweb</a>
+        <a style={{ color: '#212529' }} attrs={{ 'router-link': '/' }}>
+          PUNKWEB
+        </a>
       </h1>
       {user ? (
         <ul>
@@ -39,6 +41,7 @@ export default function Nav() {
           </li>
         </ul>
       )}
+      <hr />
     </div>
   );
 }

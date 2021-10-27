@@ -1,14 +1,14 @@
 import { pwf, jsx } from '../../../../src';
 import { Auth } from '../../services';
 
-export default function Login() {
-  let username = '';
+export default function SignUp() {
+  let username = 'asdf';
   let password = '';
 
-  function login(e: any) {
+  function signup(e: any) {
     e.preventDefault();
-    Auth.login({ username, password }).then(() => {
-      pwf.router.navigate('/');
+    Auth.signup({ username, password }).then(() => {
+      pwf.router.navigate('/login/');
     });
   }
 
@@ -19,9 +19,9 @@ export default function Login() {
           margin: '0 auto',
           width: '280px',
         }}
-        on={{ submit: (e: any) => login(e) }}
+        on={{ submit: (e: any) => signup(e) }}
       >
-        <h1>Login</h1>
+        <h1>Sign Up</h1>
         <label>Username</label>
         <input
           style={{ width: '100%' }}
@@ -43,10 +43,10 @@ export default function Login() {
           }}
         />
         <button style={{ width: '100%' }} class={{ button: true }} attrs={{ type: 'submit' }}>
-          Login
+          Sign Up
         </button>
         <div>
-          New Here? <a attrs={{ 'router-link': '/sign-up/' }}>Sign Up</a>
+          Have an account? <a attrs={{ 'router-link': '/login/' }}>Login</a>
         </div>
       </form>
     </div>
