@@ -1,4 +1,3 @@
-import { h } from 'snabbdom';
 import { logIfDebug } from './util';
 
 export interface IRoute {
