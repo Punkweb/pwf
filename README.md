@@ -32,7 +32,7 @@ npm install pwf
 
 ### Setup
 
-In your document body include an `app-root` tag and import your script:
+In your HTML document, include an element to use as your app-root such as:
 
 ```html
 <app-root>Loading...</app-root>
@@ -41,11 +41,15 @@ In your document body include an `app-root` tag and import your script:
 <script src="./src/app.jsx"></script>
 ```
 
-**Note** `Loading...` is optional
+**Note** <app-root></app-root> could be whatever you want as long as you can
+query for it in your JavaScript.
 
-### JSX
+**Note** `Loading...` is optional, this could be whatever you want (i.e: a
+loading indicator).
 
-#### JavaScript
+#### JSX
+
+##### JavaScript
 
 To use JSX in a JavaScript app you'll need to install
 `@babel/plugin-transform-react-jsx` and add it to your plugins in `.babelrc`:
@@ -69,7 +73,7 @@ npm install --save-dev @babel/plugin-transform-react-jsx
 }
 ```
 
-#### TypeScript
+##### TypeScript
 
 To use JSX in a TypeScript app you'll need to set the following
 `compilerOptions` in `tsconfig.json`
@@ -83,10 +87,22 @@ To use JSX in a TypeScript app you'll need to set the following
 },
 ```
 
-### Simple example
+### Hello world
 
 ```TSX
 import { pwf, jsx } from 'pwf';
+
+let root = document.querySelector('app-root');
+
+root = pwf.render(root, <h1>Hello world</h1>);
+```
+
+### Simple router example
+
+```TSX
+import { pwf, jsx } from 'pwf';
+
+let root = document.querySelector('app-root');
 
 function Home() {
   return (
@@ -100,7 +116,7 @@ function Error404 {
   )
 }
 
-pwf.router.init([
+pwf.router.init(root, [
   routes: [
     { path: '/' component: Home },
     { path: '/:404' component: Error404 },
