@@ -1,4 +1,4 @@
-import { pwf, jsx } from '../../../../src';
+import { pwf, jsx } from '../../../../lib';
 import { Auth } from '../../services';
 
 let username = '';
@@ -31,7 +31,6 @@ export default function Login() {
           on={{
             input: (e: any) => {
               username = e.target.value;
-              pwf.redraw();
             },
           }}
         />
@@ -42,7 +41,6 @@ export default function Login() {
           on={{
             input: (e: any) => {
               password = e.target.value;
-              pwf.redraw();
             },
           }}
         />

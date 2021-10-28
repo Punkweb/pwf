@@ -1,4 +1,4 @@
-import { jsx } from '../../../../src';
+import { jsx } from '../../../../lib';
 
 export default function Error404() {
   return (

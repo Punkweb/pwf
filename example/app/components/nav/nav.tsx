@@ -1,10 +1,9 @@
-import { pwf, jsx } from '../../../../src';
+import { pwf, jsx } from '../../../../lib';
 import { Auth } from '../../services';
 
 let user = null;
 Auth.user$.subscribe((u) => {
   user = u;
-  pwf.redraw();
 });
 
 export default function Nav() {

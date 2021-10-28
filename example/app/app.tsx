@@ -1,4 +1,4 @@
-import { pwf, jsx } from '../../src'; // Same as `import { pwf, jsx } from 'pwf';`
+import { pwf, jsx } from '../../lib'; // Same as `import { pwf, jsx } from 'pwf';`
 import { Nav } from './components';
 import { Auth } from './services';
 import { Error404, Home, Login, SignUp } from './views';

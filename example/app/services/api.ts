@@ -1,4 +1,4 @@
-import { pwf } from '../../../src';
+import { pwf } from '../../../lib';
 
 class Endpoint {
   private endpoint: string = '';
@@ -102,4 +102,6 @@ export default class API {
   static Users = new Endpoint('users');
   // Contact
   static ContactForms = new Endpoint('contact_forms');
+  // Board
+  static Categories = new Endpoint('board/categories');
 }
