@@ -1,4 +1,4 @@
-import { init, attributesModule, classModule, propsModule, styleModule, eventListenersModule, h } from 'snabbdom';
+import { init, attributesModule, classModule, propsModule, styleModule, eventListenersModule, h } from '../snabbdom/';
 import { render } from '../render';
 import { router, IRouteMatch } from '../router';
 

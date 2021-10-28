@@ -1,6 +1,6 @@
 {
   "name": "pwf",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "Punkweb client-side JavaScript framework for building Single Page Applications",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -36,11 +36,9 @@
     "jest": "^27.3.1",
     "parcel-bundler": "^1.12.5",
     "prettier": "^2.4.1",
+    "rollup": "^2.57.0",
     "rxjs": "^7.4.0",
     "sass": "^1.43.2",
     "typescript": "^4.4.4"
-  },
-  "dependencies": {
-    "snabbdom": "^3.1.0"
   }
 }

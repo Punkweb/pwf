@@ -11,13 +11,12 @@ Punkweb client-side JavaScript framework for building Single Page Applications
 
 - Simple SPA router
 - Simple json XMLHttpRequests
-- Hyperscript or JSX Virtual DOM provided by [snabbdom](https://github.com/snabbdom/snabbdom)
+- Hyperscript or JSX Virtual DOM
+- Auto redraw on virtual dom events, http requests, and navigation
 
 ## TODO
 
-- Components w/ Change detection
-- Trigger change detection on event callbacks
-- Trigger change detection on http callbacks
+- Components w/ life cycle
 
 ## Get Started
 
@@ -36,9 +35,6 @@ In your HTML document, include an element to use as your app-root such as:
 
 ```html
 <app-root>Loading...</app-root>
-
-<!-- Example using parcel-bundler -->
-<script src="./src/app.jsx"></script>
 ```
 
 **Note** <app-root></app-root> could be whatever you want as long as you can

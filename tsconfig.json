@@ -1,15 +1,14 @@
 {
   "compilerOptions": {
-    "target": "es5",
-    "lib": ["dom", "es2020"],
-    "module": "commonjs",
+    "target": "es6",
     "declaration": true,
     "outDir": "./lib",
     "strict": true,
     "strictNullChecks": false,
+    "strictFunctionTypes": false,
+    "moduleResolution": "node",
     "jsx": "react",
     "jsxFactory": "jsx"
   },
-  "include": ["src"],
-  "exclude": ["node_modules", "**/tests"]
+  "include": ["src/index.ts", "src/snabbdom/LICENSE", "src/snabbdom/README.md"]
 }

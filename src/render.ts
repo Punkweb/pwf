@@ -1,5 +1,5 @@
-import { h } from 'snabbdom';
-import { DEBUG, logIfDebug } from './util';
+import { h } from './snabbdom/';
+import { PWF_DEBUG, logIfDebug } from './util';
 
 export const render = (_patch: any) => {
   let renderCount = 0;
@@ -9,7 +9,7 @@ export const render = (_patch: any) => {
       logIfDebug('render', 'clear');
       c = h('!');
     } else {
-      if (DEBUG) {
+      if (PWF_DEBUG) {
         renderCount++;
       }
       logIfDebug('render', renderCount, root, c);
