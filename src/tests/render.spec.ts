@@ -1,8 +1,17 @@
-import { init, attributesModule, classModule, propsModule, styleModule, eventListenersModule, h } from '../snabbdom/';
+import {
+  init,
+  attributesModule,
+  classModule,
+  classNameModule,
+  propsModule,
+  styleModule,
+  eventListenersModule,
+  h,
+} from '../snabbdom/';
 import { render } from '../render';
 
 describe('render', () => {
-  const patch = init([attributesModule, classModule, propsModule, styleModule, eventListenersModule]);
+  const patch = init([attributesModule, classModule, classNameModule, propsModule, styleModule, eventListenersModule]);
   const _render = render(patch);
 
   it('should render hyperscript h1 to app-root', () => {

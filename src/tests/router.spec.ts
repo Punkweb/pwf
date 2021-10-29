@@ -1,9 +1,18 @@
-import { init, attributesModule, classModule, propsModule, styleModule, eventListenersModule, h } from '../snabbdom/';
+import {
+  init,
+  attributesModule,
+  classModule,
+  classNameModule,
+  propsModule,
+  styleModule,
+  eventListenersModule,
+  h,
+} from '../snabbdom/';
 import { render } from '../render';
 import { router, IRouteMatch } from '../router';
 
 describe('router', () => {
-  const patch = init([attributesModule, classModule, propsModule, styleModule, eventListenersModule]);
+  const patch = init([attributesModule, classModule, classNameModule, propsModule, styleModule, eventListenersModule]);
   let appRoot;
   let _render;
   let _router;

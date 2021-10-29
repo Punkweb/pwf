@@ -15,7 +15,7 @@ function login(e: any) {
 
 export default function Login() {
   return (
-    <div class={{ container: true }}>
+    <div className="container">
       <form
         style={{
           margin: '0 auto',
@@ -44,7 +44,7 @@ export default function Login() {
             },
           }}
         />
-        <button style={{ width: '100%' }} class={{ button: true }} attrs={{ type: 'submit' }}>
+        <button style={{ width: '100%' }} className="button" attrs={{ type: 'submit' }}>
           Login
         </button>
         <div>

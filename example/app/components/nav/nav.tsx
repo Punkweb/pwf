@@ -8,7 +8,7 @@ Auth.user$.subscribe((u) => {
 
 export default function Nav() {
   return (
-    <div class={{ container: true }}>
+    <div className="container">
       <h1>
         <a style={{ color: '#212529' }} attrs={{ 'router-link': '/' }}>
           PUNKWEB

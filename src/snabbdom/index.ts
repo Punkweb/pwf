@@ -17,6 +17,7 @@ export { Module } from './modules/module';
 // modules
 export { Attrs, attributesModule } from './modules/attributes';
 export { Classes, classModule } from './modules/class';
+export { classNameModule } from './modules/classname';
 export { Dataset, datasetModule } from './modules/dataset';
 export { On, eventListenersModule } from './modules/eventlisteners';
 export { Props, propsModule } from './modules/props';

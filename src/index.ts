@@ -3,6 +3,7 @@ import {
   setRedraw,
   attributesModule,
   classModule,
+  classNameModule,
   propsModule,
   styleModule,
   eventListenersModule,
@@ -11,7 +12,7 @@ import { http } from './http';
 import { render } from './render';
 import { router } from './router';
 
-const patch = init([attributesModule, classModule, propsModule, styleModule, eventListenersModule]);
+const patch = init([attributesModule, classModule, classNameModule, propsModule, styleModule, eventListenersModule]);
 const _render = render(patch);
 const _router = router(_render);
 const _http = http(_router.draw);
