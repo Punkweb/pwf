@@ -37,7 +37,7 @@ In your HTML document, include an element to use as your app-root such as:
 <app-root>Loading...</app-root>
 ```
 
-**Note** <app-root></app-root> could be whatever you want as long as you can
+**Note** `<app-root></app-root>` could be whatever you want as long as you can
 query for it in your JavaScript.
 
 **Note** `Loading...` is optional, this could be whatever you want (i.e: a
