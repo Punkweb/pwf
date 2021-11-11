@@ -1,4 +1,4 @@
-import { jsx } from '../jsx';
+import { h } from '../h';
 import { router, IRouteMatch } from '../router';
 
 describe('router', () => {
@@ -20,7 +20,7 @@ describe('router', () => {
 
   it('should init and then match route', () => {
     function Component() {
-      return jsx.element('div', {}, []);
+      return h('h1', {}, ['Hello World']);
     }
     _router.init(appRoot, [{ path: '/', component: Component }]);
     expect(_router.getRoutes().length).toBe(1);
@@ -30,7 +30,7 @@ describe('router', () => {
 
   it('should not allow you to init twice', () => {
     function Component() {
-      return jsx.element('div', {}, []);
+      return h('h1', {}, ['Hello World']);
     }
     try {
       expect(_router.init(appRoot, [{ path: '/', component: Component }])).toThrow(
