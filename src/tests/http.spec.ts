@@ -1,29 +1,15 @@
-import {
-  init,
-  attributesModule,
-  classModule,
-  classNameModule,
-  propsModule,
-  styleModule,
-  eventListenersModule,
-  h,
-} from '../snabbdom/';
 import { http } from '../http';
-import { render } from '../render';
 import { router } from '../router';
 
 describe('http', () => {
-  const patch = init([attributesModule, classModule, classNameModule, propsModule, styleModule, eventListenersModule]);
-  let appRoot;
-  let _render;
-  let _router;
-  let _http;
+  let appRoot: any;
+  let _router: any;
+  let _http: any;
 
   beforeEach(() => {
     appRoot = document.createElement('app-root');
     document.body.appendChild(appRoot);
-    _render = render(patch);
-    _router = router(_render);
+    _router = router();
     _http = http(_router.draw);
   });
 
@@ -31,7 +17,6 @@ describe('http', () => {
     document.body.childNodes.forEach((cNode) => {
       document.body.removeChild(cNode);
     });
-    _render = null;
     _router = null;
     _http = null;
   });

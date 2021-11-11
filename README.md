@@ -9,13 +9,14 @@ Punkweb client-side JavaScript framework for building Single Page Applications
 
 ## Capabilities
 
-- Simple SPA router
-- Simple json XMLHttpRequests
-- Hyperscript or JSX Virtual DOM
-- Auto redraw on virtual dom events, http requests, and navigation
+- SPA router
+- JSON XMLHttpRequests
+- JSX rendering
 
 ## TODO
 
+- Virtual DOM
+- Auto redraw on DOM events, http requests, and navigation
 - Components w/ life cycle
 
 ## Get Started
@@ -60,7 +61,8 @@ npm install --save-dev @babel/plugin-transform-react-jsx
     [
       "@babel/plugin-transform-react-jsx",
       {
-        "pragma": "jsx"
+        "pragma": "pwf.jsx.element",
+        "pragmaFrag": "pwf.jsx.fragment"
       }
     ],
     ...
@@ -68,6 +70,8 @@ npm install --save-dev @babel/plugin-transform-react-jsx
   ...
 }
 ```
+
+Files using jsx must have .jsx extension and `import { pwf } from 'pwf';`
 
 ##### TypeScript
 
@@ -78,20 +82,13 @@ To use JSX in a TypeScript app you'll need to set the following
 "compilerOptions": {
   ...
   "jsx": "react",
-  "jsxFactory": "jsx"
+  "jsxFactory": "pwf.jsx.element",
+  "jsxFragmentFactory": "pwf.jsx.fragment"
   ...
 },
 ```
 
-### Hello world
-
-```TSX
-import { pwf, jsx } from 'pwf';
-
-let root = document.querySelector('app-root');
-
-root = pwf.render(root, <h1>Hello world</h1>);
-```
+Files using jsx must have .tsx extension and `import { pwf } from 'pwf';`
 
 ### Simple router example
 
@@ -103,19 +100,19 @@ let root = document.querySelector('app-root');
 function Home() {
   return (
     <h3>Home</h3>
-  )
+  );
 }
 
 function Error404 {
   return (
     <h3>Page Not Found</h3>
-  )
+  );
 }
 
 pwf.router.init(root, [
   routes: [
-    { path: '/' component: Home },
-    { path: '/:404' component: Error404 },
+    { path: '/' component: <Home /> },
+    { path: '/:404' component: <Error404 /> },
   ]
 ]);
 ```
@@ -133,7 +130,7 @@ pwf.router.navigate('/login/');
 Navigation from JSX:
 
 ```TSX
-<a attrs={{ 'router-link': '/login/' }}>Login</a>
+<a router-link="/login/">Login</a>
 ```
 
 ### Http

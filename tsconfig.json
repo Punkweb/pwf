@@ -8,7 +8,8 @@
     "strictFunctionTypes": false,
     "moduleResolution": "node",
     "jsx": "react",
-    "jsxFactory": "jsx"
+    "jsxFactory": "pwf.jsx.element",
+    "jsxFragmentFactory": "pwf.jsx.fragment"
   },
-  "include": ["src/index.ts", "src/snabbdom/LICENSE", "src/snabbdom/README.md"]
+  "include": ["src/index.ts"]
 }

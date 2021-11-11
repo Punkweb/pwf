@@ -11,7 +11,6 @@ export interface IRouteMatch {
 }
 
 let root: any = null;
-let render: Function = null;
 let initialized = false;
 let routes: IRoute[] = [];
 let match: IRouteMatch = null;
@@ -35,6 +34,10 @@ function init(_root: any, _routes: IRoute[]) {
 }
 
 function afterDOMLoaded() {
+  logIfDebug('router', 'add popstate listener');
+  window.addEventListener('popstate', () => {
+    matchRoute();
+  });
   // Add 'router-link' attr click handler
   logIfDebug('router', 'add router-link click listener');
   document.body.addEventListener('click', (e: MouseEvent) => {
@@ -56,10 +59,6 @@ function afterDOMLoaded() {
         iterations++;
       }
     }
-  });
-  logIfDebug('router', 'add popstate listener');
-  window.addEventListener('popstate', () => {
-    matchRoute();
   });
 }
 
@@ -93,6 +92,14 @@ function matchRoute() {
   draw(true);
 }
 
+function appendChild(child: any) {
+  if (Array.isArray(child)) {
+    child.forEach((nestedChild) => appendChild(nestedChild));
+  } else {
+    root.appendChild(child.nodeType ? child : document.createTextNode(child));
+  }
+}
+
 function draw(clear = false) {
   if (!match) {
     return;
@@ -100,12 +107,12 @@ function draw(clear = false) {
   // Unmount the current component
   if (clear) {
     logIfDebug('router', 'draw', 'clear');
-    root = render(root, null);
+    root.innerHTML = '';
   }
   // Render the new component
   let component = match.route.component;
-  logIfDebug('router', 'draw');
-  root = render(root, component());
+  logIfDebug('router', 'draw', component);
+  appendChild(component);
 }
 
 function getParams() {
@@ -140,8 +147,7 @@ function getMatch() {
   return match;
 }
 
-export const router = (_render: Function) => {
-  render = _render;
+export const router = () => {
   return {
     init,
     draw,

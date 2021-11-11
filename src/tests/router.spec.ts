@@ -1,40 +1,26 @@
-import {
-  init,
-  attributesModule,
-  classModule,
-  classNameModule,
-  propsModule,
-  styleModule,
-  eventListenersModule,
-  h,
-} from '../snabbdom/';
-import { render } from '../render';
+import { jsx } from '../jsx';
 import { router, IRouteMatch } from '../router';
 
 describe('router', () => {
-  const patch = init([attributesModule, classModule, classNameModule, propsModule, styleModule, eventListenersModule]);
-  let appRoot;
-  let _render;
-  let _router;
+  let appRoot: any;
+  let _router: any;
 
   beforeEach(() => {
     appRoot = document.createElement('app-root');
     document.body.appendChild(appRoot);
-    _render = render(patch);
-    _router = router(_render);
+    _router = router();
   });
 
   afterEach(() => {
     document.body.childNodes.forEach((cNode) => {
       document.body.removeChild(cNode);
     });
-    _render = null;
     _router = null;
   });
 
   it('should init and then match route', () => {
     function Component() {
-      return h('h1', 'Test');
+      return jsx.element('div', {}, []);
     }
     _router.init(appRoot, [{ path: '/', component: Component }]);
     expect(_router.getRoutes().length).toBe(1);
@@ -44,7 +30,7 @@ describe('router', () => {
 
   it('should not allow you to init twice', () => {
     function Component() {
-      return h('h1', 'Test');
+      return jsx.element('div', {}, []);
     }
     try {
       expect(_router.init(appRoot, [{ path: '/', component: Component }])).toThrow(

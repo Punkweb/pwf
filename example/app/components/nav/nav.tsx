@@ -1,7 +1,7 @@
-import { pwf, jsx } from '../../../../lib';
+import { pwf } from '../../../../lib';
 import { Auth } from '../../services';
 
-let user = null;
+let user: any = null;
 Auth.user$.subscribe((u) => {
   user = u;
 });
@@ -10,23 +10,21 @@ export default function Nav() {
   return (
     <div className="container">
       <h1>
-        <a style={{ color: '#212529' }} attrs={{ 'router-link': '/' }}>
+        <a style="color: #212529" router-link="/">
           PUNKWEB
         </a>
       </h1>
       {user ? (
         <ul>
           <li>
-            <a attrs={{ 'router-link': '/error/' }}>Error Page</a>
+            <a router-link="/error/">Error Page</a>
           </li>
           <li>
             <a
-              on={{
-                click: (e: any) => {
-                  e.preventDefault();
-                  Auth.logout();
-                  pwf.router.navigate('/login/');
-                },
+              onClick={(e: any) => {
+                e.preventDefault();
+                Auth.logout();
+                pwf.router.navigate('/login/');
               }}
             >
               Sign Out
@@ -36,13 +34,13 @@ export default function Nav() {
       ) : (
         <ul>
           <li>
-            <a attrs={{ 'router-link': '/error/' }}>Error Page</a>
+            <a router-link="/error/">Error Page</a>
           </li>
           <li>
-            <a attrs={{ 'router-link': '/sign-up/' }}>Sign Up</a>
+            <a router-link="/sign-up/">Sign Up</a>
           </li>
           <li>
-            <a attrs={{ 'router-link': '/login/' }}>Login</a>
+            <a router-link="/login/">Login</a>
           </li>
         </ul>
       )}

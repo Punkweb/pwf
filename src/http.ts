@@ -65,6 +65,7 @@ function request(config: IHttpRequest) {
     let parametizedUrl = `${config.url}${buildQueryString(config.params)}`;
     // Open request to url (with params)
     request.open(config.method, parametizedUrl, true);
+    logIfDebug('http', 'open', config.method, parametizedUrl, config.headers, config.data);
     // Append request headers
     request.setRequestHeader('Content-Type', 'application/json');
     if (config.headers) {
@@ -74,14 +75,14 @@ function request(config: IHttpRequest) {
     }
     // Send config.data if method is post, put or patch, otherwise send without body
     if (['POST', 'PUT', 'PATCH'].includes(config.method) && config.data) {
-      logIfDebug('http', 'send', parametizedUrl, config.data);
       request.send(JSON.stringify(config.data));
     } else {
-      logIfDebug('http', 'send', parametizedUrl, null);
       request.send(null);
     }
+    logIfDebug('http', 'send');
   });
   Promise.all([promise]).finally(() => {
+    logIfDebug('http', 'redraw');
     redraw();
   });
   return promise;

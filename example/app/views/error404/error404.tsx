@@ -1,4 +1,4 @@
-import { jsx } from '../../../../lib';
+import { pwf } from '../../../../lib';
 
 export default function Error404() {
   return (
@@ -6,13 +6,7 @@ export default function Error404() {
       <h1>404</h1>
       <h2>Page not found</h2>
       <p>The page you requested does not exist or an error occured.</p>
-      <a
-        attrs={{
-          'router-link': '/',
-        }}
-      >
-        Take me home
-      </a>
+      <a router-link="/">Take me home</a>
     </div>
   );
 }

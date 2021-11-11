@@ -1,4 +1,4 @@
-import { jsx } from '../../../../lib';
+import { pwf } from '../../../../lib';
 
 export default function Home() {
   return (

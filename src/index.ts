@@ -1,28 +1,16 @@
-import {
-  init,
-  setRedraw,
-  attributesModule,
-  classModule,
-  classNameModule,
-  propsModule,
-  styleModule,
-  eventListenersModule,
-} from './snabbdom/';
 import { http } from './http';
-import { render } from './render';
+import { jsx } from './jsx';
 import { router } from './router';
+import { logIfDebug } from './util';
 
-const patch = init([attributesModule, classModule, classNameModule, propsModule, styleModule, eventListenersModule]);
-const _render = render(patch);
-const _router = router(_render);
+const _router = router();
 const _http = http(_router.draw);
-setRedraw(_router.draw);
 
-export { jsx } from './snabbdom/';
 export const pwf = {
-  buildQueryString: _http.buildQueryString,
+  jsx,
   redraw: _router.draw,
-  render: _render,
   request: _http.request,
   router: _router,
 };
+
+logIfDebug('pwf', 'api', pwf);
