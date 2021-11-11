@@ -1,8 +1,12 @@
+import { diff } from './diff';
+import { VNode } from './h';
+import { mount } from './mount';
+import { render } from './render';
 import { logIfDebug } from './util';
 
 export interface IRoute {
   path: string;
-  component: Function;
+  component: VNode | Function;
 }
 
 export interface IRouteMatch {
@@ -11,6 +15,7 @@ export interface IRouteMatch {
 }
 
 let root: any = null;
+let vTree: VNode;
 let initialized = false;
 let routes: IRoute[] = [];
 let match: IRouteMatch = null;
@@ -89,30 +94,36 @@ function matchRoute() {
   } else {
     logIfDebug('router', 'matchRoute', match);
   }
-  draw(true);
+  draw();
 }
 
-function appendChild(child: any) {
-  if (Array.isArray(child)) {
-    child.forEach((nestedChild) => appendChild(nestedChild));
-  } else {
-    root.appendChild(child.nodeType ? child : document.createTextNode(child));
-  }
-}
-
-function draw(clear = false) {
+function draw() {
   if (!match) {
     return;
   }
-  // Unmount the current component
-  if (clear) {
-    logIfDebug('router', 'draw', 'clear');
-    root.innerHTML = '';
+  let newVTree = match.route.component;
+  if (typeof newVTree === 'function') {
+    if (!vTree) {
+      logIfDebug('router', 'first draw', newVTree());
+      root = mount(root, render(newVTree()));
+      vTree = newVTree();
+    }
+    logIfDebug('router', 'draw', newVTree());
+    let patch = diff(vTree, newVTree());
+    root = patch(root);
+    vTree = newVTree();
+  } else {
+    if (!vTree) {
+      logIfDebug('router', 'first draw', newVTree);
+      root = mount(root, render(newVTree));
+      vTree = newVTree;
+      return;
+    }
+    logIfDebug('router', 'draw', newVTree);
+    let patch = diff(vTree, newVTree);
+    root = patch(root);
+    vTree = newVTree;
   }
-  // Render the new component
-  let component = match.route.component;
-  logIfDebug('router', 'draw', component);
-  appendChild(component);
 }
 
 function getParams() {

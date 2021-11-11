@@ -1,32 +1,10 @@
-function appendChild(parent: any, child: any) {
-  if (Array.isArray(child)) {
-    child.forEach((nestedChild) => appendChild(parent, nestedChild));
-  } else {
-    parent.appendChild(child.nodeType ? child : document.createTextNode(child));
-  }
-}
+import { h, VNode } from './h';
 
-function element(tag: any, props: any, ...children: any) {
+function element(tag: string | Function, props: any, ...children: Array<string | VNode>): VNode {
   if (typeof tag === 'function') {
     return tag(props, children);
   }
-  const element = document.createElement(tag);
-  Object.entries(props || {}).forEach(([name, value]) => {
-    if (name === 'className') {
-      element.className = value;
-    } else if (name.startsWith('on') && name.toLowerCase() in window) {
-      // Add event listeners
-      element.addEventListener(name.toLowerCase().substr(2), value);
-    } else {
-      // Set attributes
-      element.setAttribute(name, value.toString());
-    }
-  });
-
-  children.forEach((child: any) => {
-    appendChild(element, child);
-  });
-  return element;
+  return h(tag, props || {}, children);
 }
 
 function fragment(props: any, ...children: any) {
