@@ -1,4 +1,4 @@
-import { pwf } from '../../lib'; // Same as `import { pwf } from 'pwf';`
+import { pwf, h } from '../../lib'; // Same as `import { pwf } from 'pwf';`
 import { Nav } from './components';
 import { Auth } from './services';
 import { Error404, Home, Login, SignUp } from './views';
@@ -9,44 +9,26 @@ if (Auth.isLoggedIn()) {
 
 let root = document.querySelector('app-root');
 
-const MainLayout = (props: any, children: any) => (
-  <>
-    <Nav />
-    {children}
-  </>
-);
-
 pwf.router.init(root, [
   {
     path: '/',
-    component: (
-      <MainLayout>
+    component: () => (
+      <div>
+        <Nav />
         <Home />
-      </MainLayout>
+      </div>
     ),
   },
   {
     path: '/login/',
-    component: (
-      <MainLayout>
-        <Login />
-      </MainLayout>
-    ),
+    component: () => h('div', {}, [h(Nav), h(Login)]),
   },
   {
     path: '/sign-up/',
-    component: (
-      <MainLayout>
-        <SignUp />
-      </MainLayout>
-    ),
+    component: () => h('div', {}, [h(Nav), h(SignUp)]),
   },
   {
     path: '/:404',
-    component: (
-      <MainLayout>
-        <Error404 />
-      </MainLayout>
-    ),
+    component: () => h('div', {}, [h(Nav), h(Error404)]),
   },
 ]);

@@ -1,4 +1,4 @@
-import { pwf } from '../../../../lib';
+import { pwf, h } from '../../../../lib';
 import { Auth } from '../../services';
 
 let username = '';
@@ -26,7 +26,6 @@ export default function Login() {
           value={username}
           onInput={(e: any) => {
             username = e.target.value;
-            pwf.redraw();
           }}
         />
         <label>Password</label>
