@@ -93,7 +93,7 @@ Files using jsx must have .tsx extension and `import { pwf } from 'pwf';`
 ### Simple router example
 
 ```TSX
-import { pwf, jsx } from 'pwf';
+import { pwf } from 'pwf';
 
 let root = document.querySelector('app-root');
 
