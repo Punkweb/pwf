@@ -1,4 +1,3 @@
-import { diff } from './diff';
 import { VNode } from './h';
 import { mount } from './mount';
 import { render } from './render';
@@ -15,7 +14,7 @@ export interface IRouteMatch {
 }
 
 let root: any = null;
-let vTree: VNode;
+let vTree: VNode | Array<VNode>;
 let initialized = false;
 let routes: IRoute[] = [];
 let match: IRouteMatch = null;
@@ -103,25 +102,12 @@ function draw() {
   }
   let newVTree = match.route.component;
   if (typeof newVTree === 'function') {
-    if (!vTree) {
-      logIfDebug('router', 'first draw', newVTree());
-      root = mount(root, render(newVTree()));
-      vTree = newVTree();
-    }
     logIfDebug('router', 'draw', newVTree());
-    let patch = diff(vTree, newVTree());
-    root = patch(root);
+    mount(root, render(newVTree()));
     vTree = newVTree();
   } else {
-    if (!vTree) {
-      logIfDebug('router', 'first draw', newVTree);
-      root = mount(root, render(newVTree));
-      vTree = newVTree;
-      return;
-    }
     logIfDebug('router', 'draw', newVTree);
-    let patch = diff(vTree, newVTree);
-    root = patch(root);
+    mount(root, render(newVTree));
     vTree = newVTree;
   }
 }

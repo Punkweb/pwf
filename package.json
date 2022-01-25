@@ -27,18 +27,18 @@
   "bugs": "https://github.com/Punkweb/pwf/issues",
   "homepage": "https://github.com/Punkweb/pwf#readme",
   "devDependencies": {
-    "@babel/core": "^7.15.8",
-    "@babel/preset-env": "^7.15.8",
-    "@babel/preset-typescript": "^7.15.0",
-    "@types/jest": "^27.0.2",
-    "@types/node": "^16.11.6",
-    "babel-jest": "^27.3.1",
-    "jest": "^27.3.1",
+    "@babel/core": "^7.16.12",
+    "@babel/preset-env": "^7.16.11",
+    "@babel/preset-typescript": "^7.16.7",
+    "@types/jest": "^27.4.0",
+    "@types/node": "^16.11.21",
+    "babel-jest": "^27.4.6",
+    "jest": "^27.4.7",
     "parcel-bundler": "^1.12.5",
-    "prettier": "^2.4.1",
+    "prettier": "^2.5.1",
     "rollup": "^2.57.0",
-    "rxjs": "^7.4.0",
-    "sass": "^1.43.2",
-    "typescript": "^4.4.4"
+    "rxjs": "^7.5.2",
+    "sass": "^1.49.0",
+    "typescript": "^4.5.5"
   }
 }

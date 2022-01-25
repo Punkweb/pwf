@@ -8,7 +8,7 @@ function element(tag: string | Function, props: any, ...children: Array<string |
 }
 
 function fragment(props: any, ...children: any) {
-  return children;
+  return children.flat();
 }
 
 declare global {

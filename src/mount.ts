@@ -1,4 +1,8 @@
-export function mount(root: any, node: any) {
-  root.replaceWith(node);
-  return node;
+export function mount(root: HTMLElement, element: any) {
+  if (Array.isArray(element)) {
+    root.replaceChildren(...element);
+    return element;
+  }
+  root.replaceChildren(element);
+  return element;
 }
