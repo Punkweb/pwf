@@ -1,0 +1,257 @@
+@mixin ss-button-base {
+  appearance: none;
+  background-color: transparent;
+  border: 1px solid transparent;
+  border-radius: 2px;
+  color: $oc-gray-9;
+  cursor: pointer;
+  display: inline-block;
+  font-family: 'Open Sans';
+  font-size: 14px;
+  font-weight: 600;
+  outline: none;
+  padding: 0.5rem 1rem;
+  position: relative;
+  min-width: 64px;
+  text-align: center;
+  text-decoration: none !important;
+  text-transform: uppercase;
+  transition: all 0.1s ease-in-out;
+
+  &:disabled {
+    cursor: not-allowed;
+  }
+
+  &.ss-fluid {
+    width: 100%;
+  }
+
+  &.ss-icon-leading {
+    padding-left: 3rem;
+
+    .icon-leading {
+      font-size: 16px;
+      left: 1rem;
+      margin: 0;
+      position: absolute;
+      top: 10px;
+    }
+  }
+
+  &.ss-icon-trailing {
+    padding-right: 3rem;
+
+    .icon-trailing {
+      font-size: 16px;
+      margin: 0;
+      position: absolute;
+      right: 1rem;
+      top: 0.5rem;
+    }
+  }
+}
+
+@mixin ss-button-raised-base {
+  @include ss-button-base;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+@mixin ss-button-outlined-base {
+  @include ss-button-base;
+  background: transparent;
+  border: 1px solid $oc-gray-4;
+  color: $oc-gray-9;
+}
+
+@mixin ss-button-flat-base {
+  @include ss-button-base;
+}
+
+@mixin ss-icon-button-base {
+  @include ss-button-base;
+  border-radius: 100%;
+  font-size: 18px;
+  height: 40px;
+  line-height: 40px;
+  max-height: 40px;
+  max-width: 40px;
+  min-height: 40px;
+  min-width: 40px;
+  padding: 0;
+  text-align: center;
+  width: 40px;
+}
+
+@mixin ss-button-fab-base {
+  @include ss-button-base;
+  border-radius: 100%;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.5);
+  font-size: 24px;
+  height: 64px;
+  line-height: 64px;
+  max-height: 64px;
+  max-width: 64px;
+  min-height: 64px;
+  min-width: 64px;
+  padding: 0;
+  text-align: center;
+  width: 64px;
+}
+
+.ss-button {
+  @include ss-button-base;
+}
+
+.ss-button-raised {
+  @include ss-button-raised-base;
+}
+
+.ss-button-outlined {
+  @include ss-button-outlined-base;
+}
+
+.ss-button-flat {
+  @include ss-button-flat-base;
+}
+
+.ss-icon-button {
+  @include ss-icon-button-base;
+}
+
+.ss-button-fab {
+  @include ss-button-fab-base;
+}
+
+.ss-button-mini-fab {
+  @include ss-button-fab-base;
+  font-size: 18px;
+  height: 40px;
+  line-height: 40px;
+  max-height: 40px;
+  max-width: 40px;
+  min-height: 40px;
+  min-width: 40px;
+  width: 40px;
+}
+
+// Basic
+// Outlined
+// Icon
+
+.ss-button,
+.ss-button-outlined,
+.ss-icon-button {
+  &:hover {
+    background-color: $oc-gray-0;
+  }
+
+  &:active {
+    background-color: $oc-gray-1;
+  }
+
+  &:disabled {
+    color: $oc-gray-5 !important;
+
+    &:hover {
+      background-color: transparent !important;
+    }
+
+    &:active {
+      background-color: transparent !important;
+    }
+  }
+
+  &.ss-primary {
+    color: $oc-blue-9;
+
+    &:hover {
+      background-color: $oc-blue-0;
+    }
+
+    &:active {
+      background-color: $oc-blue-1;
+    }
+  }
+
+  &.ss-accent {
+    color: $oc-green-9;
+
+    &:hover {
+      background-color: $oc-green-0;
+    }
+
+    &:active {
+      background-color: $oc-green-1;
+    }
+  }
+
+  &.ss-warn {
+    color: $oc-red-9;
+
+    &:hover {
+      background-color: $oc-red-0;
+    }
+
+    &:active {
+      background-color: $oc-red-1;
+    }
+  }
+}
+
+// Raised
+// Flat
+// Fab
+// Mini Fab
+
+.ss-button-raised {
+  &:active {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  }
+
+  &:disabled {
+    background-color: $oc-gray-0 !important;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5) !important;
+    color: $oc-gray-5 !important;
+  }
+}
+
+.ss-button-flat {
+  &:disabled {
+    background-color: $oc-gray-0 !important;
+    box-shadow: none !important;
+    color: $oc-gray-5 !important;
+  }
+}
+
+.ss-button-fab,
+.ss-button-mini-fab {
+  &:active {
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
+  }
+
+  &:disabled {
+    background-color: $oc-gray-0 !important;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.5);
+    color: $oc-gray-5 !important;
+  }
+}
+
+.ss-button-raised,
+.ss-button-flat,
+.ss-button-fab,
+.ss-button-mini-fab {
+  &.ss-primary {
+    background-color: $oc-blue-9;
+    color: white;
+  }
+
+  &.ss-accent {
+    background-color: $oc-green-9;
+    color: white;
+  }
+
+  &.ss-warn {
+    background-color: $oc-red-9;
+    color: white;
+  }
+}

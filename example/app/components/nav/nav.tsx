@@ -8,7 +8,7 @@ Auth.user$.subscribe((u) => {
 
 export default function Nav() {
   return (
-    <div className="container">
+    <div class="container">
       <h1>
         <a style="color: #212529" router-link="/">
           PUNKWEB
@@ -34,13 +34,13 @@ export default function Nav() {
       ) : (
         <ul>
           <li>
-            <a router-link="/error/">Error Page</a>
+            <a router-link="/login/">Login</a>
           </li>
           <li>
             <a router-link="/sign-up/">Sign Up</a>
           </li>
           <li>
-            <a router-link="/login/">Login</a>
+            <a router-link="/error/">Error Page</a>
           </li>
         </ul>
       )}

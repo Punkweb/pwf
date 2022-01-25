@@ -2,7 +2,7 @@ import { pwf } from '../../../../lib';
 
 export default function Home() {
   return (
-    <div className="container">
+    <div class="container">
       <h1>Home Page</h1>
     </div>
   );

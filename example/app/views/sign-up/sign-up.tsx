@@ -15,12 +15,12 @@ function signup(e: any) {
 
 export default function SignUp() {
   return (
-    <div className="container">
-      <form style="margin: 0 auto; width: 280px" onSubmit={(e: any) => signup(e)}>
+    <div class="container">
+      <form style="margin: 0 auto; width: 288px" onSubmit={(e: any) => signup(e)}>
         <h1>Sign Up</h1>
-        <label>Username</label>
+        <label for="username">Username</label>
         <input
-          style="width: 100%"
+          class="ss-input ss-fluid"
           type="text"
           name="username"
           value={username}
@@ -28,9 +28,9 @@ export default function SignUp() {
             username = e.target.value;
           }}
         />
-        <label>Password</label>
+        <label for="password">Password</label>
         <input
-          style="width: 100%"
+          class="ss-input ss-fluid"
           type="password"
           name="password"
           value={password}
@@ -38,7 +38,7 @@ export default function SignUp() {
             password = e.target.value;
           }}
         />
-        <button style="width: 100%" className="button" type="submit">
+        <button class="ss-button-raised ss-primary ss-fluid" style="margin: 1rem 0;" type="submit">
           Sign Up
         </button>
         <div>
