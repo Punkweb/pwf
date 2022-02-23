@@ -15,7 +15,7 @@ Punkweb client-side JavaScript framework for building Single Page Applications
 
 ## TODO
 
-- Virtual DOM
+- DOM Abstraction
 - Auto redraw on DOM events, http requests, and navigation
 - Components w/ life cycle
 

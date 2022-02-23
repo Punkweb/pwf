@@ -1,4 +1,4 @@
-import { pwf, h } from '../../../../lib';
+import { pwf } from '../../../../lib';
 import { Auth } from '../../services';
 
 let username = '';

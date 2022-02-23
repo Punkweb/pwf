@@ -12,7 +12,7 @@ let root = document.querySelector('app-root');
 pwf.router.init(root, [
   {
     path: '/',
-    component: (
+    component: () => (
       <>
         <Nav />
         <Home />
