@@ -1,4 +1,5 @@
-node_modules
-lib
+.parcel-cache
+coverage
 dist
-.cache
+lib
+node_modules

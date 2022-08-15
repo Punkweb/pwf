@@ -1,6 +1,6 @@
 {
   "name": "pwf",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Punkweb client-side JavaScript framework for building Single Page Applications",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -8,7 +8,7 @@
     "start": "parcel example/index.html",
     "build": "tsc --watch",
     "format": "prettier --write 'src/**/*.{html,css,scss,js,ts,md}'",
-    "test": "jest src/",
+    "test": "jest src/ --coverage",
     "nuke": "rm -rf .cache dist lib node_modules",
     "nuke:dist": "rm -rf .cache dist",
     "reinstall": "npm run nuke && npm install",
@@ -27,18 +27,18 @@
   "bugs": "https://github.com/Punkweb/pwf/issues",
   "homepage": "https://github.com/Punkweb/pwf#readme",
   "devDependencies": {
-    "@babel/core": "^7.16.12",
-    "@babel/preset-env": "^7.16.11",
-    "@babel/preset-typescript": "^7.16.7",
-    "@types/jest": "^27.4.0",
-    "@types/node": "^16.11.21",
-    "babel-jest": "^27.4.6",
-    "jest": "^27.4.7",
-    "parcel-bundler": "^1.12.5",
-    "prettier": "^2.5.1",
-    "rollup": "^2.57.0",
-    "rxjs": "^7.5.2",
-    "sass": "^1.49.0",
-    "typescript": "^4.5.5"
+    "@babel/core": "^7.18.10",
+    "@babel/preset-env": "^7.18.10",
+    "@babel/preset-typescript": "^7.18.6",
+    "@parcel/transformer-sass": "^2.7.0",
+    "@types/jest": "^28.1.7",
+    "@types/node": "^18.7.5",
+    "babel-jest": "^28.1.3",
+    "jest": "^28.1.3",
+    "jest-environment-jsdom": "^28.1.3",
+    "parcel": "^2.7.0",
+    "prettier": "^2.7.1",
+    "rxjs": "^7.5.6",
+    "typescript": "^4.7.4"
   }
 }
